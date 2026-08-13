@@ -363,32 +363,37 @@ async function guardarPQR(event) {
       action: "crearPQR",
       usuario: usuarioSesion,
 
-      clave_primaria:
-        document.getElementById("clavePrimaria").value.trim(),
+      // El Código.gs recibe los datos de STEP 1 dentro de d.pqr
+      pqr: {
+        clave_primaria:
+          document.getElementById("clavePrimaria").value.trim(),
 
-      fecha_de_ingreso:
-        formatearFecha(document.getElementById("fechaIngreso").value),
+        fecha_de_ingreso:
+          formatearFecha(document.getElementById("fechaIngreso").value),
 
-      direccion:
-        document.getElementById("direccion").value.trim(),
+        direccion:
+          document.getElementById("direccion").value.trim(),
 
-      municipio:
-        document.getElementById("municipio").value,
+        municipio:
+          document.getElementById("municipio").value,
 
-      nombre_cliente:
-        document.getElementById("nombreCliente").value.trim(),
+        nombre_cliente:
+          document.getElementById("nombreCliente").value.trim(),
 
-      telefono:
-        document.getElementById("telefono").value.trim(),
+        telefono:
+          document.getElementById("telefono").value.trim(),
 
-      tipo_de_danio:
-        document.getElementById("tipoDanio").value,
+        tipo_de_danio:
+          document.getElementById("tipoDanio").value,
 
-      descripcion_de_solicitud:
-        document.getElementById("descripcionSolicitud").value.trim(),
+        descripcion_de_solicitud:
+          document.getElementById("descripcionSolicitud").value.trim(),
 
-      gps_clave_primaria:
-        document.getElementById("gps").value.trim()
+        gps_clave_primaria:
+          document.getElementById("gps").value.trim(),
+
+        pdf: ""
+      }
     };
 
     const data = await llamarAPI(datos);
