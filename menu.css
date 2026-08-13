@@ -1,0 +1,361 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f3f6f9;
+  color: #203040;
+}
+
+
+/* ==========================================
+   HEADER
+   ========================================== */
+
+.header {
+  background: #17365d;
+  color: white;
+  box-shadow: 0 3px 14px rgba(0,0,0,.16);
+}
+
+.header-main {
+  max-width: 1100px;
+  margin: auto;
+  padding: 13px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  background: white;
+  border-radius: 8px;
+  padding: 3px;
+}
+
+.brand-title {
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.brand-subtitle {
+  font-size: 12px;
+  opacity: .78;
+  margin-top: 2px;
+}
+
+.btn-logout {
+  width: 43px;
+  height: 43px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,.12);
+  color: white;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+.btn-logout:hover {
+  background: rgba(255,255,255,.2);
+}
+
+
+/* ==========================================
+   USER BAR
+   ========================================== */
+
+.user-bar {
+  max-width: 1100px;
+  margin: auto;
+  padding: 9px 22px;
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  font-size: 12px;
+  background: rgba(0,0,0,.10);
+}
+
+.user-bar div {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+
+
+/* ==========================================
+   CONTENEDOR
+   ========================================== */
+
+.container {
+  width: 100%;
+  max-width: 1050px;
+  margin: auto;
+  padding: 30px 22px 45px;
+}
+
+
+/* ==========================================
+   WELCOME
+   ========================================== */
+
+.welcome {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.welcome-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 15px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: #17365d;
+  box-shadow: 0 4px 14px rgba(0,0,0,.08);
+}
+
+.welcome h1 {
+  margin: 0;
+  font-size: 25px;
+}
+
+.welcome p {
+  margin: 5px 0 0;
+  color: #718096;
+  font-size: 14px;
+}
+
+
+/* ==========================================
+   MENU
+   ========================================== */
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.menu-card {
+  position: relative;
+  min-height: 210px;
+  border: 0;
+  border-radius: 20px;
+  padding: 25px;
+  text-align: left;
+  cursor: pointer;
+  background: white;
+  box-shadow: 0 7px 22px rgba(0,0,0,.08);
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  transition: transform .18s, box-shadow .18s;
+}
+
+.menu-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0,0,0,.13);
+}
+
+.menu-card:active {
+  transform: scale(.985);
+}
+
+
+/* ==========================================
+   ICONOS
+   ========================================== */
+
+.card-icon {
+  flex: 0 0 60px;
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 27px;
+}
+
+.atc-card .card-icon {
+  background: #e8f1fb;
+  color: #245f95;
+}
+
+.distribucion-card .card-icon {
+  background: #edf4ea;
+  color: #3f6c35;
+}
+
+
+/* ==========================================
+   CONTENIDO
+   ========================================== */
+
+.card-content {
+  flex: 1;
+  padding-right: 20px;
+}
+
+.card-content h2 {
+  margin: 0 0 8px;
+  font-size: 13px;
+  letter-spacing: .4px;
+  color: #7b8794;
+}
+
+.card-title {
+  font-size: 23px;
+  font-weight: 900;
+  color: #203040;
+  margin-bottom: 10px;
+}
+
+.card-content p {
+  margin: 0;
+  line-height: 1.5;
+  color: #718096;
+  font-size: 14px;
+}
+
+.card-arrow {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  color: #9ba8b5;
+}
+
+
+/* ==========================================
+   INFORMACIÓN DE SESIÓN
+   ========================================== */
+
+.session-info {
+  background: white;
+  border-radius: 16px;
+  margin-top: 25px;
+  padding: 17px 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,.06);
+}
+
+.session-info div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.session-info span {
+  color: #8a98a6;
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.session-info strong {
+  color: #243b53;
+  font-size: 14px;
+}
+
+
+/* ==========================================
+   FOOTER
+   ========================================== */
+
+footer {
+  text-align: center;
+  padding: 15px;
+  color: #95a1ad;
+  font-size: 10px;
+}
+
+
+/* ==========================================
+   CELULAR
+   ========================================== */
+
+@media (max-width: 700px) {
+
+  .header-main {
+    padding: 11px 15px;
+  }
+
+  .brand img {
+    width: 43px;
+    height: 43px;
+  }
+
+  .brand-title {
+    font-size: 15px;
+  }
+
+  .user-bar {
+    padding: 8px 15px;
+    justify-content: space-between;
+  }
+
+  .container {
+    padding: 22px 14px 35px;
+  }
+
+  .welcome {
+    margin-bottom: 18px;
+  }
+
+  .welcome h1 {
+    font-size: 21px;
+  }
+
+  .menu-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .menu-card {
+    min-height: 150px;
+    padding: 19px;
+    border-radius: 17px;
+  }
+
+  .card-icon {
+    flex-basis: 52px;
+    width: 52px;
+    height: 52px;
+    font-size: 23px;
+  }
+
+  .card-title {
+    font-size: 19px;
+  }
+
+  .card-content p {
+    font-size: 13px;
+  }
+
+  .session-info {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 15px;
+  }
+
+}
