@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+  >
+
+  <title>ENEE UTCD - PQR</title>
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="menu.css"
+  >
+
+  <script src="config.js"></script>
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+  <div class="header-main">
+
+    <div class="brand">
+
+      <img
+        src="UTCD Vertical.png"
+        alt="ENEE UTCD"
+      >
+
+      <div>
+        <div class="brand-title">
+          GESTIÓN DE PQR
+        </div>
+
+        <div class="brand-subtitle">
+          ENEE · UTCD
+        </div>
+      </div>
+
+    </div>
+
+
+    <button
+      class="btn-logout"
+      onclick="cerrarSesion()"
+      title="Cerrar sesión"
+    >
+      <i class="fa-solid fa-right-from-bracket"></i>
+    </button>
+
+  </div>
+
+
+  <div class="user-bar">
+
+    <div>
+      <i class="fa-solid fa-user"></i>
+      <strong id="nombreUsuario">
+        Usuario
+      </strong>
+    </div>
+
+    <div>
+      <i class="fa-solid fa-location-dot"></i>
+      <span id="nombreSector">
+        Sector
+      </span>
+    </div>
+
+  </div>
+
+</header>
+
+
+
+<main class="container">
+
+
+  <section class="welcome">
+
+    <div class="welcome-icon">
+      <i class="fa-solid fa-file-circle-check"></i>
+    </div>
+
+    <div>
+
+      <h1>
+        Panel principal
+      </h1>
+
+      <p>
+        Seleccione el área de trabajo
+      </p>
+
+    </div>
+
+  </section>
+
+
+
+  <section class="menu-grid">
+
+
+    <!-- ==========================================
+         ATC
+         TIPO 1 Y 2
+         ========================================== -->
+
+    <button
+      id="cardATC"
+      class="menu-card atc-card"
+      onclick="abrirATC()"
+    >
+
+      <div class="card-icon">
+
+        <i class="fa-solid fa-headset"></i>
+
+      </div>
+
+      <div class="card-content">
+
+        <h2>
+          ATENCIÓN AL CLIENTE
+        </h2>
+
+        <div class="card-title">
+          PQR ATC
+        </div>
+
+        <p>
+          Registro y gestión de solicitudes
+          de atención al cliente.
+        </p>
+
+      </div>
+
+      <div class="card-arrow">
+        <i class="fa-solid fa-chevron-right"></i>
+      </div>
+
+    </button>
+
+
+
+    <!-- ==========================================
+         DISTRIBUCIÓN
+         TIPO 1 Y 3
+         ========================================== -->
+
+    <button
+      id="cardDistribucion"
+      class="menu-card distribucion-card"
+      onclick="abrirDistribucion()"
+    >
+
+      <div class="card-icon">
+
+        <i class="fa-solid fa-tower-broadcast"></i>
+
+      </div>
+
+      <div class="card-content">
+
+        <h2>
+          DISTRIBUCIÓN
+        </h2>
+
+        <div class="card-title">
+          LEVANTAMIENTO EN CAMPO
+        </div>
+
+        <p>
+          Consulta de PQR y levantamiento
+          técnico de la red.
+        </p>
+
+      </div>
+
+      <div class="card-arrow">
+        <i class="fa-solid fa-chevron-right"></i>
+      </div>
+
+    </button>
+
+
+  </section>
+
+
+  <section class="session-info">
+
+    <div>
+      <span>Usuario</span>
+      <strong id="infoUsuario"></strong>
+    </div>
+
+    <div>
+      <span>Rol</span>
+      <strong id="infoRol"></strong>
+    </div>
+
+    <div>
+      <span>Sector</span>
+      <strong id="infoSector"></strong>
+    </div>
+
+  </section>
+
+
+</main>
+
+
+
+<footer>
+
+  ENEE · UTCD · Sistema de Gestión de PQR
+
+</footer>
+
+
+
+<script src="menu.js"></script>
+
+</body>
+
+</html>
