@@ -116,8 +116,8 @@ footer{text-align:center;color:#96a2ad;font-size:10px;padding:15px}
 
       <div class="grid two">
         <div class="field">
-          <label>Clave primaria <span>*</span></label>
-          <input id="clavePrimaria" type="number" step="1" inputmode="numeric" required>
+          <label>Clave primaria</label>
+          <input id="clavePrimaria" type="text" maxlength="100" inputmode="text" placeholder="Opcional">
         </div>
 
         <div class="field">
@@ -442,7 +442,6 @@ async function guardarPQR(event) {
 
 function validarFormulario() {
   const campos = [
-    ["clavePrimaria", "Clave primaria"],
     ["fechaIngreso", "Fecha de ingreso"],
     ["direccion", "Dirección"],
     ["municipio", "Municipio"],
