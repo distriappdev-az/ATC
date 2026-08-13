@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#17365d">
+<title>Distribución - PQR ENEE UTCD</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#f3f6f9;color:#203040;font-family:Arial,Helvetica,sans-serif}
+body{min-height:100vh}
+.header{position:sticky;top:0;z-index:20;background:#17365d;color:#fff;box-shadow:0 3px 14px #0003}
+.header-main{padding:10px 13px;display:flex;align-items:center;gap:10px}
+.brand{flex:1;display:flex;align-items:center;gap:10px;min-width:0}
+.brand img{width:40px;height:40px;object-fit:contain;background:#fff;border-radius:8px;padding:3px}
+.brand-title{font-size:13px;font-weight:900;white-space:nowrap}
+.brand-subtitle{font-size:9px;opacity:.75;margin-top:2px}
+.header-btn{width:38px;height:38px;border:0;border-radius:50%;background:#ffffff1f;color:#fff;cursor:pointer;flex:none}
+.user-bar{padding:7px 13px;background:#0002;display:flex;justify-content:space-between;gap:10px;font-size:10px}
+.user-bar span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.container{padding:15px 12px 80px;max-width:650px;margin:auto}
+.page-heading{margin:5px 2px 15px}
+.page-heading h1{margin:0;font-size:21px}
+.page-heading p{margin:5px 0 0;color:#718096;font-size:11px}
+.btn-new{width:100%;height:46px;border:0;border-radius:11px;background:#17365d;color:#fff;font-weight:900;font-size:13px;cursor:pointer;margin-bottom:13px}
+.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:13px}
+.summary-card{background:#fff;border-radius:12px;padding:12px;display:flex;align-items:center;gap:9px;box-shadow:0 3px 12px #0000000c}
+.summary-card:nth-child(3){grid-column:1/-1}
+.summary-icon{width:38px;height:38px;border-radius:10px;background:#edf4fa;color:#3977aa;display:grid;place-items:center;flex:none}
+.summary-icon.pending{background:#fff5df;color:#a47718}
+.summary-icon.done{background:#eaf5e7;color:#4f7e46}
+.summary-card span{display:block;font-size:9px;text-transform:uppercase;color:#8996a3;font-weight:800}
+.summary-card strong{display:block;margin-top:2px;font-size:19px}
+.filters{background:#fff;border-radius:12px;padding:12px;box-shadow:0 3px 12px #0000000c;margin-bottom:13px}
+.search{position:relative;margin-bottom:9px}
+.search i{position:absolute;left:11px;top:13px;color:#8996a3;font-size:11px}
+input,select{width:100%;height:40px;border:1px solid #d5dde5;border-radius:8px;padding:0 10px;background:#fff;outline:none;font-size:12px}
+.search input{padding-left:30px}
+.filter-row{display:grid;grid-template-columns:1fr 40px;gap:8px}
+.refresh{height:40px;border:1px solid #ccd6df;background:#fff;border-radius:8px;color:#536576;cursor:pointer}
+.list-header{display:flex;justify-content:space-between;align-items:center;margin:4px 2px 9px}
+.list-header strong{font-size:13px}
+.list-header span{font-size:9px;color:#8996a3}
+.card{background:#fff;border-radius:13px;padding:13px;margin-bottom:10px;box-shadow:0 3px 13px #0000000d;border:1px solid #edf0f2}
+.card-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:9px}
+.item{font-size:13px;font-weight:900;color:#17365d}
+.badge{font-size:8px;font-weight:900;padding:5px 8px;border-radius:20px;background:#fff4da;color:#8a650c;white-space:nowrap}
+.badge.ok{background:#eaf5e7;color:#4c733f}
+.card-line{display:flex;gap:8px;margin:6px 0;font-size:10px;line-height:1.35}
+.card-line i{width:14px;color:#3977aa;text-align:center;margin-top:1px}
+.card-line .label{color:#8996a3;font-weight:800;min-width:65px}
+.card-line .value{color:#30485e;word-break:break-word}
+.card-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:11px}
+.action{height:38px;border:0;border-radius:8px;background:#edf4fa;color:#315f80;font-size:10px;font-weight:900;cursor:pointer}
+.action.primary{background:#17365d;color:#fff}
+.loading,.empty,.error{background:#fff;border-radius:12px;padding:35px 15px;text-align:center;color:#8996a3;font-size:11px}
+.loading i{font-size:18px;margin-bottom:8px}
+.modal{position:fixed;inset:0;background:#0007;z-index:50;display:none;align-items:flex-end}
+.modal.show{display:flex}
+.sheet{background:#fff;width:100%;max-height:92vh;border-radius:18px 18px 0 0;overflow:auto;padding:15px 13px 25px}
+.sheet-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.sheet-head h2{margin:0;font-size:16px;color:#17365d}
+.close{width:34px;height:34px;border:0;border-radius:50%;background:#eef2f5;color:#536576}
+.detail{border-top:1px solid #edf0f2;padding:10px 0}.detail strong{display:block;font-size:9px;text-transform:uppercase;color:#8996a3;margin-bottom:4px}.detail div{font-size:12px;color:#30485e;line-height:1.45;white-space:pre-wrap;word-break:break-word}
+.btn-full{width:100%;height:44px;border:0;border-radius:9px;background:#17365d;color:#fff;font-weight:900;margin-top:9px}
+footer{text-align:center;color:#96a2ad;font-size:9px;padding:12px}
+@media(min-width:650px){.container{padding-top:25px}.summary-grid{grid-template-columns:repeat(3,1fr)}.summary-card:nth-child(3){grid-column:auto}.modal{align-items:center}.sheet{max-width:560px;border-radius:18px}}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-main">
+    <button class="header-btn" onclick="volverMenu()"><i class="fa-solid fa-arrow-left"></i></button>
+    <div class="brand">
+      <img src="UTCD Vertical.png" alt="ENEE UTCD">
+      <div>
+        <div class="brand-title">PQR - DISTRIBUCIÓN</div>
+        <div class="brand-subtitle">LEVANTAMIENTO EN CAMPO · ENEE UTCD</div>
+      </div>
+    </div>
+    <button class="header-btn" onclick="cerrarSesion()"><i class="fa-solid fa-right-from-bracket"></i></button>
+  </div>
+  <div class="user-bar">
+    <span><i class="fa-solid fa-user"></i> <strong id="nombreUsuario">Usuario</strong></span>
+    <span><i class="fa-solid fa-location-dot"></i> <strong id="nombreSector">Sector</strong></span>
+  </div>
+</header>
+
+<main class="container">
+  <section class="page-heading">
+    <h1>Levantamiento en campo</h1>
+    <p>Consulta las PQR de tu sector y completa el STEP 2.</p>
+  </section>
+
+  <button class="btn-new" onclick="cargarPQR()"><i class="fa-solid fa-rotate"></i> ACTUALIZAR PQR</button>
+
+  <section class="summary-grid">
+    <div class="summary-card"><div class="summary-icon"><i class="fa-solid fa-file-lines"></i></div><div><span>Total visibles</span><strong id="totalPQR">0</strong></div></div>
+    <div class="summary-card"><div class="summary-icon pending"><i class="fa-solid fa-clock"></i></div><div><span>Pendientes</span><strong id="totalPendientes">0</strong></div></div>
+    <div class="summary-card"><div class="summary-icon done"><i class="fa-solid fa-circle-check"></i></div><div><span>Con levantamiento</span><strong id="totalLevantadas">0</strong></div></div>
+  </section>
+
+  <section class="filters">
+    <div class="search"><i class="fa-solid fa-magnifying-glass"></i><input id="buscar" placeholder="Buscar ITEM, cliente, municipio..." autocomplete="off"></div>
+    <div class="filter-row">
+      <select id="filtroEstado"><option value="">Todos los estados</option></select>
+      <button class="refresh" onclick="cargarPQR()"><i class="fa-solid fa-rotate"></i></button>
+    </div>
+  </section>
+
+  <div class="list-header"><strong>PQR disponibles</strong><span id="contador">0 registros</span></div>
+  <section id="lista"><div class="loading"><i class="fa-solid fa-spinner fa-spin"></i><br>Cargando PQR...</div></section>
+</main>
+
+<footer>ENEE · UTCD · Sistema de Gestión de PQR</footer>
+
+<div id="modal" class="modal" onclick="cerrarModal(event)">
+  <div class="sheet">
+    <div class="sheet-head"><h2 id="modalTitulo">Detalle PQR</h2><button class="close" onclick="cerrarModal()"><i class="fa-solid fa-xmark"></i></button></div>
+    <div id="modalContenido"></div>
+    <button class="btn-full" id="btnLevantar" onclick="abrirLevantamiento()"><i class="fa-solid fa-pen-to-square"></i> COMPLETAR STEP 2</button>
+  </div>
+</div>
+
+<script>
+const API_URL="https://script.google.com/macros/s/AKfycbw7nzQdL7Kmc_cVBNp9FUPWlBwvuibc2v2vonb8sdBjxYtTuejJsJ7of03W7ZYkvAen4A/exec";
+const usuarioSesion=sessionStorage.getItem("usuario")||sessionStorage.getItem("usuarioSesion")||"";
+const tipoUsuario=String(sessionStorage.getItem("tipo_usuario")||sessionStorage.getItem("tipoUsuarioSesion")||sessionStorage.getItem("id_tipous")||"").trim();
+const sectorSesion=sessionStorage.getItem("sector")||sessionStorage.getItem("sectorSesion")||"";
+let listaPQR=[], seleccion=null;
+
+document.addEventListener("DOMContentLoaded",async()=>{
+  if(!usuarioSesion){location.href="index.html";return}
+  if(!["1","3"].includes(tipoUsuario)){alert("No tienes permisos para acceder a Distribución.");location.href="menu.html";return}
+  nombreUsuario.textContent=usuarioSesion;
+  nombreSector.textContent=sectorSesion||"Sin sector";
+  buscar.addEventListener("input",render);
+  filtroEstado.addEventListener("change",render);
+  await cargarPQR();
+});
+
+async function api(payload){
+  const r=await fetch(API_URL,{method:"POST",body:JSON.stringify(payload)});
+  if(!r.ok)throw Error("Error HTTP "+r.status);
+  return r.json();
+}
+
+async function cargarPQR(){
+  lista.innerHTML='<div class="loading"><i class="fa-solid fa-spinner fa-spin"></i><br>Cargando PQR...</div>';
+  try{
+    const d=await api({action:"obtenerListaPQR",usuario:usuarioSesion,modulo:"DISTRIBUCION"});
+    if(d.status!=="Éxito")throw Error(d.message||"No se pudo cargar la lista.");
+    listaPQR=Array.isArray(d.pqr)?d.pqr:[];
+    const estados=[...new Set(listaPQR.map(x=>x.estado).filter(Boolean))].sort();
+    filtroEstado.innerHTML='<option value="">Todos los estados</option>'+estados.map(x=>'<option>'+esc(x)+'</option>').join("");
+    render();
+  }catch(e){
+    lista.innerHTML='<div class="error"><i class="fa-solid fa-triangle-exclamation"></i><br>'+esc(e.message)+'</div>';
+  }
+}
+
+function tieneLevantamiento(x){
+  return !!(x.fecha_levantamiento||x.circuito||x.descripcion_del_levantamiento||x.observaciones||x.foto_1||x.foto_2||x.foto_3||x.levantado_por);
+}
+
+function render(){
+  const q=buscar.value.toLowerCase().trim(),est=filtroEstado.value;
+  const rows=listaPQR.filter(x=>{
+    const text=[x.item,x.nombre_cliente,x.municipio,x.tipo_de_danio,x.ingresado_por,x.circuito].join(" ").toLowerCase();
+    return (!q||text.includes(q))&&(!est||String(x.estado)===est);
+  });
+  totalPQR.textContent=listaPQR.length;
+  totalPendientes.textContent=listaPQR.filter(x=>!tieneLevantamiento(x)).length;
+  totalLevantadas.textContent=listaPQR.filter(tieneLevantamiento).length;
+  contador.textContent=rows.length+" registros";
+  if(!rows.length){lista.innerHTML='<div class="empty"><i class="fa-solid fa-inbox"></i><br><br>No hay PQR para mostrar.</div>';return}
+  lista.innerHTML=rows.map(x=>{
+    const levantada=tieneLevantamiento(x);
+    return '<article class="card">'+
+      '<div class="card-top"><div class="item">'+esc(x.item)+'</div><span class="badge '+(levantada?'ok':'')+'">'+(levantada?'LEVANTADA':'PENDIENTE')+'</span></div>'+
+      line('fa-user','Cliente',x.nombre_cliente)+
+      line('fa-location-dot','Municipio',x.municipio)+
+      line('fa-calendar','Ingreso',x.fecha_de_ingreso)+
+      line('fa-bolt','Daño',x.tipo_de_danio)+
+      line('fa-signal','Circuito',x.circuito||'Pendiente')+
+      '<div class="card-actions"><button class="action" onclick="verDetalle('+indexOf(x)+')"><i class="fa-solid fa-eye"></i> VER STEP 1</button>'+
+      '<button class="action primary" onclick="seleccionar('+indexOf(x)+')"><i class="fa-solid fa-pen-to-square"></i> '+(levantada?'VER / EDITAR':'LEVANTAR')+'</button></div>'+
+      '</article>';
+  }).join("");
+}
+
+function line(icon,label,value){
+  return '<div class="card-line"><i class="fa-solid '+icon+'"></i><span class="label">'+label+'</span><span class="value">'+esc(value||'—')+'</span></div>';
+}
+function indexOf(x){return listaPQR.indexOf(x)}
+function verDetalle(i){seleccion=listaPQR[i];abrirModal(false)}
+function seleccionar(i){seleccion=listaPQR[i];abrirModal(true)}
+
+function abrirModal(editar){
+  if(!seleccion)return;
+  modalTitulo.textContent="PQR "+(seleccion.item||"");
+  modalContenido.innerHTML=
+    detail("Estado",seleccion.estado)+
+    detail("Fecha de ingreso",seleccion.fecha_de_ingreso)+
+    detail("Dirección",seleccion.direccion)+
+    detail("Municipio",seleccion.municipio)+
+    detail("Cliente",seleccion.nombre_cliente)+
+    detail("Teléfono",seleccion.telefono)+
+    detail("Tipo de daño",seleccion.tipo_de_danio)+
+    detail("Descripción de solicitud",seleccion.descripcion_de_solicitud)+
+    detail("GPS",seleccion.gps_clave_primaria)+
+    detail("Ingresado por",seleccion.ingresado_por)+
+    detail("Fecha de levantamiento",seleccion.fecha_levantamiento)+
+    detail("Circuito",seleccion.circuito)+
+    detail("Descripción del levantamiento",seleccion.descripcion_del_levantamiento)+
+    detail("Observaciones",seleccion.observaciones)+
+    detail("Levantado por",seleccion.levantado_por);
+  btnLevantar.style.display=editar?"block":"block";
+  modal.classList.add("show");
+}
+function detail(label,value){return '<div class="detail"><strong>'+label+'</strong><div>'+esc(value||'—')+'</div></div>'}
+function cerrarModal(e){if(!e||e.target===modal)modal.classList.remove("show")}
+function abrirLevantamiento(){
+  if(!seleccion)return;
+  sessionStorage.setItem("pqr_step2",JSON.stringify(seleccion));
+  sessionStorage.setItem("item_pqr",seleccion.item||"");
+  location.href="levantamientopqr.html";
+}
+function volverMenu(){location.href="menu.html"}
+function cerrarSesion(){sessionStorage.clear();location.href="index.html"}
+function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+</script>
+</body>
+</html>
