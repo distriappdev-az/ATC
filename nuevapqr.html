@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nueva PQR - ENEE UTCD</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <script type="text/javascript" src="https://gc.kes.v2.scr.kaspersky-labs.com/7EA5E9BB-55E1-4C31-9C21-4943DDFED2E4/main.js?attr=w72z3ZlhITgzWEWSDKUggdPbUbIu6_1ozPZ7vaualNhBRXwK7D0uTAJ_KIXpCKjTnXa5CvAHO8Cg33be8D9SFvdX5vfaJjj1aOxa54rqrzqpzevjrgcFkwEh_f5nEvU0Xy0sBgOdSuqRHL6hOAGfhurmXCuhI_Xl3mW70ppfKsYEciDtAbX6juKRi7icjR5o2wJtfZ7o32aiYbTSn3dkdXctzwyQAZBLksFMzP8aotJ7jQ0sPMwkIxJCMG8Ql6v5RYxgvaShQ8mvuE_mmUZ-d8lRXaHs68C2S240HUtiH_MbdeM2aO0GGECAGhnDk8gd" charset="UTF-8"></script><style>
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f3f6f9;
+  color: #203040;
+}
+
+.header {
+  background: #17365d;
+  color: white;
+  box-shadow: 0 3px 14px rgba(0,0,0,.16);
+}
+
+.header-main {
+  max-width: 1000px;
+  margin: auto;
+  padding: 12px 22px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.brand {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.brand img {
+  width: 47px;
+  height: 47px;
+  object-fit: contain;
+  background: white;
+  border-radius: 8px;
+  padding: 3px;
+}
+
+.brand-title { font-size: 17px; font-weight: 900; }
+.brand-subtitle { font-size: 11px; opacity: .75; margin-top: 3px; }
+
+.btn-icon {
+  width: 42px;
+  height: 42px;
+  border: 0;
+  border-radius: 50%;
+  color: white;
+  background: rgba(255,255,255,.12);
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.user-bar {
+  max-width: 1000px;
+  margin: auto;
+  padding: 8px 22px;
+  background: rgba(0,0,0,.10);
+  display: flex;
+  gap: 25px;
+  font-size: 12px;
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 28px 22px 45px;
+}
+
+.page-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.page-title h1 { margin: 0; font-size: 25px; }
+.page-title p { margin: 6px 0 0; color: #718096; font-size: 14px; }
+
+.step-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.step-badge span:not(.line) {
+  width: 31px;
+  height: 31px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 12px;
+}
+
+.step-active { background: #17365d; color: white; }
+.step-muted { background: #dce3e9; color: #718096; }
+.line { width: 28px; height: 2px; background: #dce3e9; }
+
+.card {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,.06);
+}
+
+.card-title {
+  color: #30485e;
+  font-size: 14px;
+  font-weight: 900;
+  margin-bottom: 17px;
+}
+
+.card-title i { margin-right: 7px; color: #3977aa; }
+
+.grid {
+  display: grid;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.grid.two { grid-template-columns: 1fr 1fr; }
+
+.field { margin-bottom: 14px; }
+.field:last-child { margin-bottom: 0; }
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  color: #536576;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+label span { color: #c62828; }
+
+input, select, textarea {
+  width: 100%;
+  border: 1px solid #d5dde5;
+  border-radius: 9px;
+  background: white;
+  color: #203040;
+  font: inherit;
+  font-size: 13px;
+  outline: none;
+}
+
+input, select { height: 43px; padding: 0 11px; }
+textarea { padding: 11px; resize: vertical; }
+
+input:focus, select:focus, textarea:focus {
+  border-color: #3977aa;
+  box-shadow: 0 0 0 3px rgba(57,119,170,.08);
+}
+
+input.invalid, select.invalid, textarea.invalid {
+  border-color: #c62828;
+}
+
+small {
+  display: block;
+  margin-top: 5px;
+  color: #8a97a4;
+  font-size: 10px;
+}
+
+.readonly {
+  height: 43px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 9px;
+  background: #fff7e5;
+  color: #8b6200;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.gps-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 9px;
+}
+
+.btn-secondary {
+  height: 43px;
+  padding: 0 15px;
+  border: 1px solid #cbd6df;
+  border-radius: 9px;
+  background: #f8fafb;
+  color: #34526c;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.upload-box {
+  min-height: 105px;
+  border: 1.5px dashed #c4d0da;
+  border-radius: 12px;
+  padding: 18px;
+  display: grid;
+  grid-template-columns: 45px 1fr;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  background: #fafcfd;
+}
+
+.upload-box > i {
+  font-size: 27px;
+  color: #3977aa;
+  text-align: center;
+}
+
+.upload-box strong { font-size: 13px; }
+.upload-box p { margin: 5px 0 0; color: #84919e; font-size: 11px; }
+
+.upload-box input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.file-info {
+  margin-top: 9px;
+  padding: 9px 11px;
+  background: #eef5fa;
+  border-radius: 8px;
+  color: #355a76;
+  font-size: 11px;
+}
+
+.hidden { display: none !important; }
+
+.system-card { background: #f9fbfc; }
+
+.system-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.system-grid div {
+  padding: 12px;
+  border: 1px solid #e1e7ec;
+  border-radius: 9px;
+  background: white;
+}
+
+.system-grid span {
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #8996a3;
+  font-weight: 800;
+}
+
+.system-grid strong {
+  display: block;
+  margin-top: 5px;
+  font-size: 13px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.btn-cancel, .btn-save {
+  height: 45px;
+  padding: 0 20px;
+  border-radius: 9px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.btn-cancel {
+  border: 1px solid #ccd5dd;
+  background: white;
+  color: #536576;
+}
+
+.btn-save {
+  border: 0;
+  background: #17365d;
+  color: white;
+}
+
+.btn-save:disabled {
+  opacity: .6;
+  cursor: wait;
+}
+
+.message {
+  margin-bottom: 16px;
+  padding: 12px 14px;
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.message.success { background: #eaf5e7; color: #3d6f35; }
+.message.error { background: #fdeceb; color: #a52119; }
+
+footer {
+  text-align: center;
+  color: #96a2ad;
+  font-size: 10px;
+  padding: 15px;
+}
+
+@media (max-width: 700px) {
+  .header-main { padding: 10px 13px; }
+  .brand-title { font-size: 13px; }
+  .brand-subtitle { font-size: 9px; }
+  .brand img { width: 40px; height: 40px; }
+  .user-bar { padding: 7px 13px; justify-content: space-between; font-size: 10px; }
+  .container { padding: 20px 13px 35px; }
+  .page-title { align-items: flex-start; }
+  .page-title h1 { font-size: 21px; }
+  .grid.two, .system-grid { grid-template-columns: 1fr; }
+  .gps-row { grid-template-columns: 1fr; }
+  .btn-secondary { width: 100%; }
+  .actions { flex-direction: column-reverse; }
+  .btn-cancel, .btn-save { width: 100%; }
+}
+
+  </style>
+  <script>
+    // URL de tu Web App de Google Apps Script
+    const CONFIG = {
+      URL_APPS_SCRIPT: "https://script.google.com/macros/s/AKfycbw7nzQdL7Kmc_cVBNp9FUPWlBwvuibc2v2vonb8sdBjxYtTuejJsJ7of03W7ZYkvAen4A/exec"
+    };
+  </script>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-main">
+    <button class="btn-icon" onclick="volverATC()" title="Volver">
+      <i class="fa-solid fa-arrow-left"></i>
+    </button>
+
+    <div class="brand">
+      <img src="UTCD Vertical.png" alt="ENEE UTCD">
+      <div>
+        <div class="brand-title">NUEVA PQR</div>
+        <div class="brand-subtitle">ENEE · UTCD · ATENCIÓN AL CLIENTE</div>
+      </div>
+    </div>
+
+    <button class="btn-icon" onclick="cerrarSesion()" title="Cerrar sesión">
+      <i class="fa-solid fa-right-from-bracket"></i>
+    </button>
+  </div>
+
+  <div class="user-bar">
+    <span><i class="fa-solid fa-user"></i> <strong id="nombreUsuario">Usuario</strong></span>
+    <span><i class="fa-solid fa-location-dot"></i> <strong id="nombreSector">Sector</strong></span>
+  </div>
+</header>
+
+<main class="container">
+
+  <div class="page-title">
+    <div>
+      <h1>Ingreso de solicitud</h1>
+      <p>STEP 1 · Datos de la PQR</p>
+    </div>
+    <div class="step-badge">
+      <span class="step-active">1</span>
+      <span class="line"></span>
+      <span class="step-muted">2</span>
+    </div>
+  </div>
+
+  <div id="mensaje" class="message hidden"></div>
+
+  <form id="formPQR" novalidate>
+
+    <section class="card">
+      <div class="card-title">
+        <i class="fa-solid fa-file-circle-plus"></i>
+        Información de la solicitud
+      </div>
+
+      <div class="grid two">
+        <div class="field">
+          <label>Estado de PQR</label>
+          <div class="readonly">
+            <i class="fa-solid fa-clock"></i>
+            PENDIENTE
+          </div>
+          <small>Se asigna automáticamente.</small>
+        </div>
+
+        <div class="field">
+          <label>Fecha de ingreso <span>*</span></label>
+          <input id="fechaIngreso" type="date" required>
+        </div>
+      </div>
+
+      <div class="grid two">
+        <div class="field">
+          <label>Clave primaria <span>*</span></label>
+          <input id="clavePrimaria" type="number" step="1" inputmode="numeric" required>
+        </div>
+
+        <div class="field">
+          <label>Municipio <span>*</span></label>
+          <select id="municipio" required>
+            <option value="">Cargando municipios...</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Dirección <span>*</span></label>
+        <textarea id="direccion" rows="3" maxlength="1000" required
+          placeholder="Ingrese la dirección o referencia del lugar..."></textarea>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-title">
+        <i class="fa-solid fa-user"></i>
+        Datos del cliente
+      </div>
+
+      <div class="grid two">
+        <div class="field">
+          <label>Nombre del cliente <span>*</span></label>
+          <input id="nombreCliente" type="text" maxlength="200" required>
+        </div>
+
+        <div class="field">
+          <label>Teléfono <span>*</span></label>
+          <input id="telefono" type="text" maxlength="30" inputmode="tel" required>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-title">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        Detalle de la solicitud
+      </div>
+
+      <div class="field">
+        <label>Tipo de daño <span>*</span></label>
+        <select id="tipoDanio" required>
+          <option value="">Cargando tipos de daño...</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Descripción de solicitud <span>*</span></label>
+        <textarea id="descripcionSolicitud" rows="5" maxlength="3000" required
+          placeholder="Describa detalladamente la solicitud del cliente..."></textarea>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-title">
+        <i class="fa-solid fa-location-crosshairs"></i>
+        Ubicación
+      </div>
+
+      <div class="field">
+        <label>GPS clave primaria</label>
+
+        <div class="gps-row">
+          <input id="gps" type="text" placeholder="Latitud, Longitud" readonly>
+          <button type="button" class="btn-secondary" onclick="obtenerGPS()">
+            <i class="fa-solid fa-location-crosshairs"></i>
+            Obtener GPS
+          </button>
+        </div>
+
+        <small>Se recomienda capturar la ubicación desde el dispositivo donde se registra la PQR.</small>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-title">
+        <i class="fa-solid fa-file-pdf"></i>
+        Documento de soporte
+      </div>
+
+      <div class="upload-box">
+        <i class="fa-solid fa-cloud-arrow-up"></i>
+        <div>
+          <strong>PDF de soporte</strong>
+          <p>Seleccione un archivo PDF desde el equipo.</p>
+        </div>
+        <input id="pdf" type="file" accept="application/pdf,.pdf">
+      </div>
+
+      <div id="pdfInfo" class="file-info hidden"></div>
+    </section>
+
+    <section class="card system-card">
+      <div class="card-title">
+        <i class="fa-solid fa-lock"></i>
+        Datos automáticos
+      </div>
+
+      <div class="system-grid">
+        <div>
+          <span>Ingresado por</span>
+          <strong id="ingresadoPor">-</strong>
+        </div>
+        <div>
+          <span>Sector</span>
+          <strong id="sectorAutomatico">-</strong>
+        </div>
+      </div>
+    </section>
+
+    <div class="actions">
+      <button type="button" class="btn-cancel" onclick="volverATC()">
+        Cancelar
+      </button>
+
+      <button type="submit" class="btn-save" id="btnGuardar">
+        <i class="fa-solid fa-floppy-disk"></i>
+        Guardar PQR
+      </button>
+    </div>
+
+  </form>
+</main>
+
+<footer>ENEE · UTCD · Sistema de Gestión de PQR</footer>
+
+<script>
+// ============================================================
+// NUEVA PQR - STEP 1
+// ============================================================
+
+const usuarioSesion = sessionStorage.getItem("usuario") || "";
+const sectorSesion = sessionStorage.getItem("sector") || "";
+const tipoUsuarioSesion = String(sessionStorage.getItem("tipo_usuario") || "").trim();
+
+document.addEventListener("DOMContentLoaded", iniciar);
+
+async function iniciar() {
+  if (!usuarioSesion) {
+    window.location.href = "index.html";
+    return;
+  }
+
+  // ATC: usuarios tipo 1 y 2
+  if (tipoUsuarioSesion !== "1" && tipoUsuarioSesion !== "2") {
+    alert("No tienes permisos para ingresar una PQR desde ATC.");
+    window.location.href = "menu.html";
+    return;
+  }
+
+  document.getElementById("nombreUsuario").textContent = usuarioSesion;
+  document.getElementById("nombreSector").textContent = sectorSesion || "Sin sector";
+  document.getElementById("ingresadoPor").textContent = usuarioSesion;
+  document.getElementById("sectorAutomatico").textContent = sectorSesion || "Sin sector";
+
+  document.getElementById("fechaIngreso").value = fechaHoyLocal();
+
+  document.getElementById("formPQR").addEventListener("submit", guardarPQR);
+  document.getElementById("pdf").addEventListener("change", mostrarPDF);
+
+  await Promise.all([
+    cargarMunicipios(),
+    cargarTiposDanio()
+  ]);
+}
+
+// ============================================================
+// CARGAR MUNICIPIOS POR SECTOR
+// ============================================================
+
+async function cargarMunicipios() {
+  const select = document.getElementById("municipio");
+
+  try {
+    const data = await llamarAPI({
+      action: "obtenerMunicipios",
+      usuario: usuarioSesion,
+      sector: sectorSesion
+    });
+
+    if (data.status !== "Éxito") {
+      throw new Error(data.message || "No se pudieron cargar los municipios.");
+    }
+
+    const municipios = Array.isArray(data.municipios) ? data.municipios : [];
+
+    select.innerHTML = '<option value="">Seleccione un municipio</option>';
+
+    municipios.forEach(municipio => {
+      const option = document.createElement("option");
+      option.value = municipio;
+      option.textContent = municipio;
+      select.appendChild(option);
+    });
+
+    if (!municipios.length) {
+      select.innerHTML = '<option value="">No hay municipios disponibles</option>';
+    }
+
+  } catch (error) {
+    console.error(error);
+    select.innerHTML = '<option value="">Error al cargar municipios</option>';
+    mostrarMensaje(error.message, "error");
+  }
+}
+
+// ============================================================
+// CARGAR TIPOS DE DAÑO
+// ============================================================
+
+async function cargarTiposDanio() {
+  const select = document.getElementById("tipoDanio");
+
+  try {
+    const data = await llamarAPI({
+      action: "obtenerValidaciones",
+      usuario: usuarioSesion
+    });
+
+    if (data.status !== "Éxito") {
+      throw new Error(data.message || "No se pudieron cargar las validaciones.");
+    }
+
+    const valores = extraerTiposDanio(data);
+
+    select.innerHTML = '<option value="">Seleccione un tipo de daño</option>';
+
+    valores.forEach(valor => {
+      const option = document.createElement("option");
+      option.value = valor;
+      option.textContent = valor;
+      select.appendChild(option);
+    });
+
+    if (!valores.length) {
+      select.innerHTML = '<option value="">No hay tipos de daño disponibles</option>';
+    }
+
+  } catch (error) {
+    console.error(error);
+    select.innerHTML = '<option value="">Error al cargar tipos de daño</option>';
+    mostrarMensaje(error.message, "error");
+  }
+}
+
+// ============================================================
+// COMPATIBILIDAD CON DISTINTAS RESPUESTAS DE VALIDACIONES
+// ============================================================
+
+function extraerTiposDanio(data) {
+  const posibles = [
+    data.tiposDanio,
+    data.tipoDanio,
+    data.validaciones,
+    data.danios
+  ];
+
+  for (const lista of posibles) {
+    if (Array.isArray(lista)) {
+      return lista
+        .map(x => typeof x === "object" ? (x.valor || x.tipo || x.nombre || "") : x)
+        .map(x => String(x).trim())
+        .filter(Boolean);
+    }
+  }
+
+  return [];
+}
+
+// ============================================================
+// GUARDAR PQR
+// ============================================================
+
+async function guardarPQR(event) {
+  event.preventDefault();
+
+  limpiarErrores();
+
+  if (!validarFormulario()) {
+    mostrarMensaje("Complete los campos obligatorios antes de guardar.", "error");
+    return;
+  }
+
+  const btn = document.getElementById("btnGuardar");
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';
+
+  try {
+    const datos = {
+      action: "crearPQR",
+      usuario: usuarioSesion,
+
+      // STEP 1
+      estado: "PENDIENTE",
+      clave_primaria: document.getElementById("clavePrimaria").value.trim(),
+      fecha_de_ingreso: formatearFecha(document.getElementById("fechaIngreso").value),
+      direccion: document.getElementById("direccion").value.trim(),
+      municipio: document.getElementById("municipio").value,
+      nombre_cliente: document.getElementById("nombreCliente").value.trim(),
+      telefono: document.getElementById("telefono").value.trim(),
+      tipo_de_danio: document.getElementById("tipoDanio").value,
+      descripcion_de_solicitud: document.getElementById("descripcionSolicitud").value.trim(),
+      gps_clave_primaria: document.getElementById("gps").value.trim()
+    };
+
+    const data = await llamarAPI(datos);
+
+    if (data.status !== "Éxito") {
+      throw new Error(data.message || "No se pudo guardar la PQR.");
+    }
+
+    const item = data.item || data.ITEM || data.item_generado || "";
+
+    mostrarMensaje(
+      item
+        ? `PQR guardada correctamente. ITEM: ${item}`
+        : "PQR guardada correctamente.",
+      "success"
+    );
+
+    document.getElementById("formPQR").reset();
+    document.getElementById("fechaIngreso").value = fechaHoyLocal();
+    document.getElementById("ingresadoPor").textContent = usuarioSesion;
+    document.getElementById("sectorAutomatico").textContent = sectorSesion || "Sin sector";
+
+    if (item) {
+      setTimeout(() => {
+        sessionStorage.setItem("item_pqr", item);
+        window.location.href = "detallepqr.html";
+      }, 900);
+    }
+
+  } catch (error) {
+    console.error(error);
+    mostrarMensaje(error.message, "error");
+
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Guardar PQR';
+  }
+}
+
+// ============================================================
+// VALIDACIÓN
+// ============================================================
+
+function validarFormulario() {
+  const campos = [
+    ["clavePrimaria", "Clave primaria"],
+    ["fechaIngreso", "Fecha de ingreso"],
+    ["direccion", "Dirección"],
+    ["municipio", "Municipio"],
+    ["nombreCliente", "Nombre del cliente"],
+    ["telefono", "Teléfono"],
+    ["tipoDanio", "Tipo de daño"],
+    ["descripcionSolicitud", "Descripción de solicitud"]
+  ];
+
+  let valido = true;
+
+  campos.forEach(([id]) => {
+    const el = document.getElementById(id);
+    if (!String(el.value || "").trim()) {
+      el.classList.add("invalid");
+      valido = false;
+    }
+  });
+
+  return valido;
+}
+
+function limpiarErrores() {
+  document.querySelectorAll(".invalid").forEach(el => {
+    el.classList.remove("invalid");
+  });
+}
+
+// ============================================================
+// GPS
+// ============================================================
+
+function obtenerGPS() {
+  if (!navigator.geolocation) {
+    mostrarMensaje("El navegador no permite obtener la ubicación.", "error");
+    return;
+  }
+
+  mostrarMensaje("Obteniendo ubicación...", "success");
+
+  navigator.geolocation.getCurrentPosition(
+    position => {
+      const lat = position.coords.latitude.toFixed(6);
+      const lng = position.coords.longitude.toFixed(6);
+
+      document.getElementById("gps").value = `${lat}, ${lng}`;
+      mostrarMensaje("Ubicación capturada correctamente.", "success");
+    },
+    error => {
+      console.error(error);
+      mostrarMensaje("No fue posible obtener la ubicación. Verifique los permisos del navegador.", "error");
+    },
+    {
+      enableHighAccuracy: true,
+      timeout: 15000,
+      maximumAge: 0
+    }
+  );
+}
+
+// ============================================================
+// PDF
+// ============================================================
+
+function mostrarPDF(event) {
+  const file = event.target.files[0];
+  const info = document.getElementById("pdfInfo");
+
+  if (!file) {
+    info.classList.add("hidden");
+    info.textContent = "";
+    return;
+  }
+
+  if (file.type !== "application/pdf" && !file.name.toLowerCase().endsWith(".pdf")) {
+    event.target.value = "";
+    info.classList.add("hidden");
+    mostrarMensaje("El archivo seleccionado debe ser un PDF.", "error");
+    return;
+  }
+
+  const mb = (file.size / 1024 / 1024).toFixed(2);
+
+  info.textContent = `Archivo seleccionado: ${file.name} · ${mb} MB`;
+  info.classList.remove("hidden");
+}
+
+// ============================================================
+// API
+// ============================================================
+
+async function llamarAPI(payload) {
+  const url =
+    (typeof CONFIG !== "undefined" && CONFIG.URL_APPS_SCRIPT)
+      ? CONFIG.URL_APPS_SCRIPT
+      : "";
+
+  if (!url) {
+    throw new Error("No se encontró CONFIG.URL_APPS_SCRIPT.");
+  }
+
+  const response = await fetch(url, {
+    method: "POST",
+    mode: "cors",
+    body: JSON.stringify(payload)
+  });
+
+  if (!response.ok) {
+    throw new Error(`Error HTTP ${response.status}`);
+  }
+
+  return await response.json();
+}
+
+// ============================================================
+// NAVEGACIÓN
+// ============================================================
+
+function volverATC() {
+  window.location.href = "atc.html";
+}
+
+function cerrarSesion() {
+  sessionStorage.clear();
+  window.location.href = "index.html";
+}
+
+// ============================================================
+// UTILIDADES
+// ============================================================
+
+function fechaHoyLocal() {
+  const ahora = new Date();
+  const y = ahora.getFullYear();
+  const m = String(ahora.getMonth() + 1).padStart(2, "0");
+  const d = String(ahora.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+}
+
+function formatearFecha(valor) {
+  if (!valor) return "";
+
+  const partes = valor.split("-");
+  if (partes.length !== 3) return valor;
+
+  return `${partes[2]}/${partes[1]}/${partes[0]}`;
+}
+
+function mostrarMensaje(texto, tipo) {
+  const el = document.getElementById("mensaje");
+  el.textContent = texto;
+  el.className = `message ${tipo}`;
+}
+
+
+</script>
+</body>
+</html>
