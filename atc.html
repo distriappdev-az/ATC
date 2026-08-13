@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>ATC - PQR ENEE UTCD</title>
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  >
+
+  <link rel="stylesheet" href="atc.css">
+
+  <script src="config.js"></script>
+</head>
+
+<body>
+
+<header class="header">
+
+  <div class="header-main">
+
+    <button
+      class="btn-back"
+      onclick="volverMenu()"
+      title="Volver"
+    >
+      <i class="fa-solid fa-arrow-left"></i>
+    </button>
+
+    <div class="brand">
+
+      <img
+        src="UTCD Vertical.png"
+        alt="ENEE UTCD"
+      >
+
+      <div>
+        <div class="brand-title">
+          PQR - ATENCIÓN AL CLIENTE
+        </div>
+
+        <div class="brand-subtitle">
+          ENEE · UTCD
+        </div>
+      </div>
+
+    </div>
+
+    <button
+      class="btn-logout"
+      onclick="cerrarSesion()"
+      title="Cerrar sesión"
+    >
+      <i class="fa-solid fa-right-from-bracket"></i>
+    </button>
+
+  </div>
+
+  <div class="user-bar">
+
+    <span>
+      <i class="fa-solid fa-user"></i>
+      <strong id="nombreUsuario">Usuario</strong>
+    </span>
+
+    <span>
+      <i class="fa-solid fa-location-dot"></i>
+      <strong id="nombreSector">Sector</strong>
+    </span>
+
+  </div>
+
+</header>
+
+
+<main class="container">
+
+  <!-- =========================================
+       ENCABEZADO
+       ========================================= -->
+
+  <section class="page-heading">
+
+    <div>
+
+      <h1>
+        Gestión de PQR
+      </h1>
+
+      <p>
+        Registro y consulta de solicitudes de atención al cliente
+      </p>
+
+    </div>
+
+    <button
+      class="btn-primary"
+      onclick="nuevaPQR()"
+    >
+      <i class="fa-solid fa-plus"></i>
+      Nueva PQR
+    </button>
+
+  </section>
+
+
+  <!-- =========================================
+       RESUMEN
+       ========================================= -->
+
+  <section class="summary-grid">
+
+    <div class="summary-card">
+
+      <div class="summary-icon">
+        <i class="fa-solid fa-file-lines"></i>
+      </div>
+
+      <div>
+        <span>Total PQR</span>
+        <strong id="totalPQR">0</strong>
+      </div>
+
+    </div>
+
+
+    <div class="summary-card">
+
+      <div class="summary-icon pending">
+        <i class="fa-solid fa-clock"></i>
+      </div>
+
+      <div>
+        <span>Pendientes</span>
+        <strong id="totalPendientes">0</strong>
+      </div>
+
+    </div>
+
+
+    <div class="summary-card">
+
+      <div class="summary-icon completed">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+
+      <div>
+        <span>Atendidas</span>
+        <strong id="totalAtendidas">0</strong>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================
+       FILTROS
+       ========================================= -->
+
+  <section class="filters-card">
+
+    <div class="filter-title">
+      <i class="fa-solid fa-filter"></i>
+      Filtros de consulta
+    </div>
+
+
+    <div class="filters">
+
+      <div class="filter-group">
+
+        <label for="buscar">
+          Buscar
+        </label>
+
+        <div class="search-wrapper">
+
+          <i class="fa-solid fa-magnifying-glass"></i>
+
+          <input
+            id="buscar"
+            type="text"
+            placeholder="ITEM, cliente, municipio..."
+            autocomplete="off"
+          >
+
+        </div>
+
+      </div>
+
+
+      <div class="filter-group">
+
+        <label for="filtroEstado">
+          Estado
+        </label>
+
+        <select id="filtroEstado">
+
+          <option value="">
+            Todos los estados
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <button
+        class="btn-refresh"
+        onclick="cargarPQR()"
+        title="Actualizar"
+      >
+        <i class="fa-solid fa-rotate"></i>
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================
+       TABLA
+       ========================================= -->
+
+  <section class="table-card">
+
+    <div class="table-header">
+
+      <div>
+
+        <h2>
+          PQR registradas
+        </h2>
+
+        <span id="contadorResultados">
+          0 registros
+        </span>
+
+      </div>
+
+      <div
+        id="estadoCarga"
+        class="estado-carga"
+      ></div>
+
+    </div>
+
+
+    <div class="table-wrapper">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>ITEM</th>
+
+            <th>ESTADO</th>
+
+            <th>FECHA</th>
+
+            <th>CLIENTE</th>
+
+            <th>MUNICIPIO</th>
+
+            <th>TIPO DE DAÑO</th>
+
+            <th>INGRESADO POR</th>
+
+            <th></th>
+
+          </tr>
+
+        </thead>
+
+        <tbody id="tablaPQR">
+
+          <tr>
+
+            <td
+              colspan="8"
+              class="mensaje-tabla"
+            >
+
+              <i class="fa-solid fa-spinner fa-spin"></i>
+
+              Cargando PQR...
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<footer>
+  ENEE · UTCD · Sistema de Gestión de PQR
+</footer>
+
+
+<script src="atc.js"></script>
+
+</body>
+</html>
