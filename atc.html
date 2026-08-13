@@ -1,16 +1,126 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>ATC - PQR ENEE UTCD</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"><style>
-*{box-sizing:border-box}body{margin:0;background:#f3f6f9;color:#203040;font-family:Arial,Helvetica,sans-serif}.header{background:#17365d;color:#fff;box-shadow:0 3px 14px #0002}.header-main{max-width:1100px;margin:auto;padding:12px 20px;display:flex;align-items:center;gap:14px}.brand{flex:1;display:flex;align-items:center;gap:12px}.brand img{width:46px;height:46px;object-fit:contain;background:#fff;border-radius:8px;padding:3px}.brand-title{font-size:16px;font-weight:900}.brand-subtitle{font-size:10px;opacity:.75}.btn-back,.btn-logout{width:42px;height:42px;border:0;border-radius:50%;background:#ffffff1f;color:#fff;cursor:pointer}.user-bar{max-width:1100px;margin:auto;padding:8px 20px;background:#0002;display:flex;gap:28px;font-size:12px}.container{max-width:1100px;margin:auto;padding:28px 20px 45px}.page-heading{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:20px}.page-heading h1{margin:0;font-size:25px}.page-heading p{margin:6px 0;color:#718096;font-size:13px}.btn-primary{border:0;border-radius:9px;background:#17365d;color:#fff;height:43px;padding:0 17px;font-weight:900;cursor:pointer}.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px}.summary-card,.filters-card,.table-card{background:#fff;border-radius:14px;padding:16px;box-shadow:0 4px 15px #0000000d}.summary-card{display:flex;align-items:center;gap:12px}.summary-icon{width:42px;height:42px;border-radius:11px;background:#edf4fa;color:#3977aa;display:grid;place-items:center}.summary-icon.pending{background:#fff5df;color:#a47718}.summary-icon.completed{background:#eaf5e7;color:#4f7e46}.summary-card span{display:block;font-size:10px;color:#8996a3;font-weight:800;text-transform:uppercase}.summary-card strong{display:block;margin-top:4px;font-size:22px}.filters-card,.table-card{margin-bottom:16px}.filter-title{font-size:13px;font-weight:900;color:#30485e;margin-bottom:14px}.filters{display:grid;grid-template-columns:1fr 230px 45px;gap:12px;align-items:end}.filter-group label{display:block;font-size:11px;font-weight:800;color:#536576;margin-bottom:6px}input,select{width:100%;height:41px;border:1px solid #d5dde5;border-radius:8px;padding:0 10px;outline:none;background:#fff}.search-wrapper{position:relative}.search-wrapper i{position:absolute;left:11px;top:13px;color:#8996a3;font-size:12px}.search-wrapper input{padding-left:31px}.btn-refresh{height:41px;border:1px solid #ccd6df;border-radius:8px;background:#fff;color:#536576;cursor:pointer}.table-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.table-header h2{margin:0;font-size:15px}.table-header span{font-size:10px;color:#8996a3}.estado-carga{font-size:11px;color:#718096}.table-wrapper{overflow:auto}table{width:100%;border-collapse:collapse;min-width:780px}th{text-align:left;background:#f7f9fb;color:#718096;font-size:10px;padding:11px 9px;border-bottom:1px solid #e2e8ed}td{padding:11px 9px;border-bottom:1px solid #edf0f2;font-size:11px}.badge{display:inline-block;padding:5px 8px;border-radius:20px;background:#fff4da;color:#8a650c;font-size:9px;font-weight:900}.badge.ok{background:#eaf5e7;color:#4c733f}.btn-view{border:0;background:#edf4fa;color:#315f80;border-radius:7px;padding:7px 9px;cursor:pointer}.mensaje-tabla{text-align:center;padding:35px;color:#8996a3}footer{text-align:center;color:#96a2ad;font-size:10px;padding:15px}@media(max-width:700px){.header-main{padding:10px 13px}.brand img{width:40px;height:40px}.brand-title{font-size:13px}.brand-subtitle{font-size:9px}.user-bar{padding:7px 13px;justify-content:space-between;font-size:10px}.container{padding:20px 13px}.page-heading{align-items:flex-start;flex-direction:column}.page-heading h1{font-size:21px}.btn-primary{width:100%}.summary-grid{grid-template-columns:1fr 1fr}.summary-card:last-child{grid-column:1/-1}.filters{grid-template-columns:1fr}.btn-refresh{width:100%}}
-</style></head><body>
-<header class="header"><div class="header-main"><button class="btn-back" onclick="volverMenu()"><i class="fa-solid fa-arrow-left"></i></button><div class="brand"><img src="UTCD Vertical.png" alt="ENEE UTCD"><div><div class="brand-title">PQR - ATENCIÓN AL CLIENTE</div><div class="brand-subtitle">ENEE · UTCD</div></div></div><button class="btn-logout" onclick="cerrarSesion()"><i class="fa-solid fa-right-from-bracket"></i></button></div><div class="user-bar"><span><i class="fa-solid fa-user"></i> <strong id="nombreUsuario">Usuario</strong></span><span><i class="fa-solid fa-location-dot"></i> <strong id="nombreSector">Sector</strong></span></div></header>
-<main class="container"><section class="page-heading"><div><h1>Gestión de PQR</h1><p>Registro y consulta de solicitudes de atención al cliente</p></div><button class="btn-primary" onclick="nuevaPQR()"><i class="fa-solid fa-plus"></i> Nueva PQR</button></section>
-<section class="summary-grid"><div class="summary-card"><div class="summary-icon"><i class="fa-solid fa-file-lines"></i></div><div><span>Total PQR</span><strong id="totalPQR">0</strong></div></div><div class="summary-card"><div class="summary-icon pending"><i class="fa-solid fa-clock"></i></div><div><span>Pendientes</span><strong id="totalPendientes">0</strong></div></div><div class="summary-card"><div class="summary-icon completed"><i class="fa-solid fa-circle-check"></i></div><div><span>Atendidas</span><strong id="totalAtendidas">0</strong></div></div></section>
-<section class="filters-card"><div class="filter-title"><i class="fa-solid fa-filter"></i> Filtros de consulta</div><div class="filters"><div class="filter-group"><label>Buscar</label><div class="search-wrapper"><i class="fa-solid fa-magnifying-glass"></i><input id="buscar" placeholder="ITEM, cliente, municipio..." autocomplete="off"></div></div><div class="filter-group"><label>Estado</label><select id="filtroEstado"><option value="">Todos los estados</option></select></div><button class="btn-refresh" onclick="cargarPQR()"><i class="fa-solid fa-rotate"></i></button></div></section>
-<section class="table-card"><div class="table-header"><div><h2>PQR registradas</h2><span id="contadorResultados">0 registros</span></div><div id="estadoCarga" class="estado-carga"></div></div><div class="table-wrapper"><table><thead><tr><th>ITEM</th><th>ESTADO</th><th>FECHA</th><th>CLIENTE</th><th>MUNICIPIO</th><th>TIPO DE DAÑO</th><th>INGRESADO POR</th><th></th></tr></thead><tbody id="tablaPQR"></tbody></table></div></section></main><footer>ENEE · UTCD · Sistema de Gestión de PQR</footer>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ATC - PQR ENEE UTCD</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f3f6f9;color:#203040;font-family:Arial,Helvetica,sans-serif}
+.header{background:#17365d;color:#fff;box-shadow:0 3px 14px #0002}.header-main{max-width:1200px;margin:auto;padding:12px 20px;display:flex;align-items:center;gap:14px}
+.brand{flex:1;display:flex;align-items:center;gap:12px}.brand img{width:46px;height:46px;object-fit:contain;background:#fff;border-radius:8px;padding:3px}
+.brand-title{font-size:16px;font-weight:900}.brand-subtitle{font-size:10px;opacity:.75}.btn-back,.btn-logout{width:42px;height:42px;border:0;border-radius:50%;background:#ffffff1f;color:#fff;cursor:pointer}
+.user-bar{max-width:1200px;margin:auto;padding:8px 20px;background:#0002;display:flex;gap:28px;font-size:12px}.container{max-width:1200px;margin:auto;padding:28px 20px 45px}
+.page-heading{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:20px}.page-heading h1{margin:0;font-size:25px}.page-heading p{margin:6px 0;color:#718096;font-size:13px}
+.btn-primary{border:0;border-radius:9px;background:#17365d;color:#fff;height:43px;padding:0 17px;font-weight:900;cursor:pointer}
+.summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px}.summary-card,.filters-card,.table-card{background:#fff;border-radius:14px;padding:16px;box-shadow:0 4px 15px #0000000d}
+.summary-card{display:flex;align-items:center;gap:12px}.summary-icon{width:42px;height:42px;border-radius:11px;background:#edf4fa;color:#3977aa;display:grid;place-items:center}
+.summary-icon.pending{background:#fff5df;color:#a47718}.summary-icon.levantada{background:#e8f2ff;color:#2563a8}.summary-icon.ejecutada{background:#eaf5e7;color:#4f7e46}
+.summary-card span{display:block;font-size:10px;color:#8996a3;font-weight:800;text-transform:uppercase}.summary-card strong{display:block;margin-top:4px;font-size:22px}
+.filters-card,.table-card{margin-bottom:16px}.filter-title{font-size:13px;font-weight:900;color:#30485e;margin-bottom:14px}
+.filters{display:grid;grid-template-columns:1fr 1fr 1fr 180px 45px;gap:12px;align-items:end}.filter-group label{display:block;font-size:11px;font-weight:800;color:#536576;margin-bottom:6px}
+input,select{width:100%;height:41px;border:1px solid #d5dde5;border-radius:8px;padding:0 10px;outline:none;background:#fff}.btn-refresh{height:41px;border:1px solid #ccd6df;border-radius:8px;background:#fff;color:#536576;cursor:pointer}
+.table-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.table-header h2{margin:0;font-size:15px}.table-header span{font-size:10px;color:#8996a3}.estado-carga{font-size:11px;color:#718096}
+.table-wrapper{overflow:auto}table{width:100%;border-collapse:collapse;min-width:1080px;border:1px solid #111}
+th{text-align:left;background:#eef2f5;color:#263746;font-size:10px;padding:11px 9px;border:1px solid #111;font-weight:900}
+td{padding:9px;border:1px solid #111;font-size:11px;vertical-align:middle}tbody tr:hover{background:#f7fafc}
+.badge{display:inline-block;padding:5px 8px;border-radius:20px;background:#fff4da;color:#8a650c;font-size:9px;font-weight:900}.badge.levantada{background:#e8f2ff;color:#2563a8}.badge.ejecutada{background:#eaf5e7;color:#4c733f}
+.actions{display:flex;gap:5px;flex-wrap:nowrap}.action{height:31px;border:0;border-radius:6px;padding:0 8px;cursor:pointer;font-size:10px;font-weight:800;white-space:nowrap}
+.action.view{background:#edf4fa;color:#315f80}.action.edit{background:#eaf0ff;color:#3157a5}.action.field{background:#fff4da;color:#86620c}.action.delete{background:#fdeceb;color:#a52119}
+.mensaje-tabla{text-align:center;padding:35px;color:#8996a3}footer{text-align:center;color:#96a2ad;font-size:10px;padding:15px}
+@media(max-width:900px){.summary-grid{grid-template-columns:1fr 1fr}.filters{grid-template-columns:1fr 1fr}.btn-refresh{width:100%}}
+@media(max-width:700px){.header-main{padding:10px 13px}.brand img{width:40px;height:40px}.brand-title{font-size:13px}.brand-subtitle{font-size:9px}.user-bar{padding:7px 13px;justify-content:space-between;font-size:10px}.container{padding:20px 13px}.page-heading{align-items:flex-start;flex-direction:column}.page-heading h1{font-size:21px}.btn-primary{width:100%}.summary-grid{grid-template-columns:1fr 1fr}.filters{grid-template-columns:1fr}.btn-refresh{width:100%}}
+</style>
+</head>
+<body>
+<header class="header">
+<div class="header-main">
+<button class="btn-back" onclick="volverMenu()" title="Volver"><i class="fa-solid fa-arrow-left"></i></button>
+<div class="brand"><img src="UTCD Vertical.png" alt="ENEE UTCD"><div><div class="brand-title">PQR - ATENCIÓN AL CLIENTE</div><div class="brand-subtitle">ENEE · UTCD</div></div></div>
+<button class="btn-logout" onclick="cerrarSesion()" title="Cerrar sesión"><i class="fa-solid fa-right-from-bracket"></i></button>
+</div>
+<div class="user-bar"><span><i class="fa-solid fa-user"></i> <strong id="nombreUsuario">Usuario</strong></span><span><i class="fa-solid fa-location-dot"></i> <strong id="nombreSector">Sector</strong></span></div>
+</header>
+<main class="container">
+<section class="page-heading"><div><h1>Gestión de PQR</h1><p>Registro y consulta de solicitudes de atención al cliente</p></div><button class="btn-primary" onclick="nuevaPQR()"><i class="fa-solid fa-plus"></i> Nueva PQR</button></section>
+<section class="summary-grid">
+<div class="summary-card"><div class="summary-icon"><i class="fa-solid fa-file-lines"></i></div><div><span>Total PQR</span><strong id="totalPQR">0</strong></div></div>
+<div class="summary-card"><div class="summary-icon pending"><i class="fa-solid fa-clock"></i></div><div><span>Pendientes</span><strong id="totalPendientes">0</strong></div></div>
+<div class="summary-card"><div class="summary-icon levantada"><i class="fa-solid fa-person-circle-check"></i></div><div><span>Levantadas</span><strong id="totalLevantadas">0</strong></div></div>
+<div class="summary-card"><div class="summary-icon ejecutada"><i class="fa-solid fa-circle-check"></i></div><div><span>Ejecutadas</span><strong id="totalEjecutadas">0</strong></div></div>
+</section>
+<section class="filters-card">
+<div class="filter-title"><i class="fa-solid fa-filter"></i> Filtros de consulta</div>
+<div class="filters">
+<div class="filter-group"><label>Estado</label><select id="filtroEstado"><option value="">Todos los estados</option></select></div>
+<div class="filter-group"><label>Fecha</label><input id="filtroFecha" type="date"></div>
+<div class="filter-group"><label>Clave primaria</label><input id="filtroClave" type="text" placeholder="Buscar clave..."></div>
+<div class="filter-group"><label>Mostrar</label><select id="limite"><option value="10">10 registros</option><option value="20">20 registros</option><option value="30">30 registros</option><option value="ALL">Todos</option></select></div>
+<button class="btn-refresh" onclick="cargarPQR()" title="Actualizar"><i class="fa-solid fa-rotate"></i></button>
+</div>
+</section>
+<section class="table-card">
+<div class="table-header"><div><h2>PQR registradas</h2><span id="contadorResultados">0 registros</span></div><div id="estadoCarga" class="estado-carga"></div></div>
+<div class="table-wrapper"><table><thead><tr><th>ITEM</th><th>ESTADO</th><th>FECHA</th><th>CLAVE</th><th>CLIENTE</th><th>MUNICIPIO</th><th>TIPO DE DAÑO</th><th>INGRESADO POR</th><th>ACCIONES</th></tr></thead><tbody id="tablaPQR"></tbody></table></div>
+</section>
+</main>
+<footer>ENEE · UTCD · Sistema de Gestión de PQR</footer>
 <script>
-const API_URL="https://script.google.com/macros/s/AKfycbw7nzQdL7Kmc_cVBNp9FUPWlBwvuibc2v2vonb8sdBjxYtTuejJsJ7of03W7ZYkvAen4A/exec";const usuarioSesion=sessionStorage.getItem("usuario")||sessionStorage.getItem("usuarioSesion")||"";const tipo=String(sessionStorage.getItem("tipo_usuario")||sessionStorage.getItem("tipoUsuarioSesion")||sessionStorage.getItem("id_tipous")||"").trim();let lista=[];
-document.addEventListener("DOMContentLoaded",async()=>{if(!usuarioSesion){location.href="index.html";return}if(!["1","2"].includes(tipo)){alert("No tienes permisos para acceder a ATC.");location.href="menu.html";return}nombreUsuario.textContent=usuarioSesion;nombreSector.textContent=sessionStorage.getItem("sector")||sessionStorage.getItem("sectorSesion")||"Sin sector";buscar.addEventListener("input",render);filtroEstado.addEventListener("change",render);await cargarPQR()});
+const API_URL="https://script.google.com/macros/s/AKfycbw7nzQdL7Kmc_cVBNp9FUPWlBwvuibc2v2vonb8sdBjxYtTuejJsJ7of03W7ZYkvAen4A/exec";
+const usuarioSesion=sessionStorage.getItem("usuario")||sessionStorage.getItem("usuarioSesion")||"";
+const tipo=String(sessionStorage.getItem("tipo_usuario")||sessionStorage.getItem("tipoUsuarioSesion")||sessionStorage.getItem("id_tipous")||"").trim();
+let lista=[];
+document.addEventListener("DOMContentLoaded",async()=>{
+if(!usuarioSesion){location.href="index.html";return}
+if(!["1","2"].includes(tipo)){alert("No tienes permisos para acceder a ATC.");location.href="menu.html";return}
+nombreUsuario.textContent=usuarioSesion;
+nombreSector.textContent=sessionStorage.getItem("sector")||sessionStorage.getItem("sectorSesion")||"Sin sector";
+filtroEstado.addEventListener("change",render);filtroFecha.addEventListener("change",render);filtroClave.addEventListener("input",render);limite.addEventListener("change",render);
+await cargarPQR();
+});
 async function api(p){const r=await fetch(API_URL,{method:"POST",body:JSON.stringify(p)});if(!r.ok)throw Error("Error HTTP "+r.status);return r.json()}
-async function cargarPQR(){estadoCarga.textContent="Cargando...";tablaPQR.innerHTML='<tr><td colspan="8" class="mensaje-tabla"><i class="fa-solid fa-spinner fa-spin"></i> Cargando PQR...</td></tr>';try{const d=await api({action:"obtenerListaPQR",usuario:usuarioSesion,modulo:"ATC"});if(d.status!=="Éxito")throw Error(d.message||"No se pudo cargar la lista.");lista=Array.isArray(d.pqr)?d.pqr:[];filtroEstado.innerHTML='<option value="">Todos los estados</option>'+[...new Set(lista.map(x=>x.estado).filter(Boolean))].sort().map(x=>'<option>'+esc(x)+'</option>').join("");render();estadoCarga.textContent=""}catch(e){estadoCarga.textContent="Error";tablaPQR.innerHTML='<tr><td colspan="8" class="mensaje-tabla">'+esc(e.message)+'</td></tr>'}}
-function render(){const q=buscar.value.toLowerCase().trim(),est=filtroEstado.value,rows=lista.filter(x=>(!q||[x.item,x.nombre_cliente,x.municipio,x.tipo_de_danio,x.ingresado_por,x.clave_primaria].join(" ").toLowerCase().includes(q))&&(!est||x.estado===est));totalPQR.textContent=lista.length;totalPendientes.textContent=lista.filter(x=>String(x.estado).toUpperCase()==="PENDIENTE").length;totalAtendidas.textContent=lista.filter(x=>String(x.estado).toUpperCase()!=="PENDIENTE"&&x.estado).length;contadorResultados.textContent=rows.length+" registros";if(!rows.length){tablaPQR.innerHTML='<tr><td colspan="8" class="mensaje-tabla">No hay PQR para mostrar.</td></tr>';return}tablaPQR.innerHTML=rows.map(x=>'<tr><td><strong>'+esc(x.item)+'</strong></td><td><span class="badge '+(String(x.estado).toUpperCase()!=="PENDIENTE"?"ok":"")+'">'+esc(x.estado)+'</span></td><td>'+esc(x.fecha_de_ingreso)+'</td><td>'+esc(x.nombre_cliente)+'</td><td>'+esc(x.municipio)+'</td><td>'+esc(x.tipo_de_danio)+'</td><td>'+esc(x.ingresado_por)+'</td><td><button class="btn-view" onclick="ver(\''+String(x.item).replace(/'/g,"\\'")+'\')"><i class="fa-solid fa-eye"></i></button></td></tr>').join("")}
-function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}function ver(item){sessionStorage.setItem("item_pqr",item);location.href="detallepqr.html"}function nuevaPQR(){location.href="nuevapqr.html"}function volverMenu(){location.href="menu.html"}function cerrarSesion(){sessionStorage.clear();location.href="index.html"}
-</script></body></html>
+async function cargarPQR(){
+estadoCarga.textContent="Cargando...";tablaPQR.innerHTML='<tr><td colspan="9" class="mensaje-tabla"><i class="fa-solid fa-spinner fa-spin"></i> Cargando PQR...</td></tr>';
+try{
+const d=await api({action:"obtenerListaPQR",usuario:usuarioSesion,modulo:"ATC"});
+if(d.status!=="Éxito")throw Error(d.message||"No se pudo cargar la lista.");
+lista=Array.isArray(d.pqr)?d.pqr:[];
+const estados=[...new Set(lista.map(x=>String(x.estado||"").trim()).filter(Boolean))];
+filtroEstado.innerHTML='<option value="">Todos los estados</option>'+estados.map(x=>'<option value="'+escAttr(x)+'">'+esc(x)+'</option>').join("");
+render();estadoCarga.textContent="";
+}catch(e){estadoCarga.textContent="Error";tablaPQR.innerHTML='<tr><td colspan="9" class="mensaje-tabla">'+esc(e.message)+'</td></tr>'}
+}
+function normalizarEstado(x){return String(x||"").trim().toUpperCase()}
+function normalizarFechaTexto(v){v=String(v||"").trim();if(/^\d{2}\/\d{2}\/\d{4}$/.test(v)){const p=v.split("/");return p[2]+"-"+p[1]+"-"+p[0]}return /^\d{4}-\d{2}-\d{2}$/.test(v)?v:""}
+function render(){
+const estado=filtroEstado.value,fecha=filtroFecha.value,clave=filtroClave.value.toLowerCase().trim();
+let rows=lista.filter(x=>(!estado||normalizarEstado(x.estado)===normalizarEstado(estado))&&(!fecha||normalizarFechaTexto(x.fecha_de_ingreso)===fecha)&&(!clave||String(x.clave_primaria||"").toLowerCase().includes(clave)));
+totalPQR.textContent=lista.length;
+totalPendientes.textContent=lista.filter(x=>normalizarEstado(x.estado)==="PENDIENTE").length;
+totalLevantadas.textContent=lista.filter(x=>normalizarEstado(x.estado)==="LEVANTADA").length;
+totalEjecutadas.textContent=lista.filter(x=>normalizarEstado(x.estado)==="EJECUTADA").length;
+if(limite.value!=="ALL")rows=rows.slice(0,Number(limite.value));
+contadorResultados.textContent=rows.length+" registros";
+if(!rows.length){tablaPQR.innerHTML='<tr><td colspan="9" class="mensaje-tabla">No hay PQR para mostrar.</td></tr>';return}
+tablaPQR.innerHTML=rows.map(x=>{
+const item=String(x.item||""),est=normalizarEstado(x.estado),clase=est==="LEVANTADA"?"levantada":est==="EJECUTADA"?"ejecutada":"";
+return '<tr><td><strong>'+esc(item)+'</strong></td><td><span class="badge '+clase+'">'+esc(x.estado||"")+'</span></td><td>'+esc(x.fecha_de_ingreso||"")+'</td><td>'+esc(x.clave_primaria||"")+'</td><td>'+esc(x.nombre_cliente||"")+'</td><td>'+esc(x.municipio||"")+'</td><td>'+esc(x.tipo_de_danio||"")+'</td><td>'+esc(x.ingresado_por||"")+'</td><td><div class="actions">'+
+'<button class="action view" title="Visualizar PQR" onclick="visualizar(\''+js(item)+'\')"><i class="fa-solid fa-eye"></i></button>'+
+'<button class="action edit" title="Editar PQR" onclick="editar(\''+js(item)+'\')"><i class="fa-solid fa-pen"></i></button>'+
+'<button class="action field" title="Ver levantamiento" onclick="verLevantamiento(\''+js(item)+'\')"><i class="fa-solid fa-helmet-safety"></i></button>'+
+'<button class="action delete" title="Eliminar PQR" onclick="eliminar(\''+js(item)+'\')"><i class="fa-solid fa-trash"></i></button>'+
+'</div></td></tr>'}).join("")
+}
+function visualizar(item){sessionStorage.setItem("item_pqr",item);location.href="detallepqr.html"}
+function editar(item){sessionStorage.setItem("item_pqr",item);sessionStorage.setItem("modo_pqr","editar");location.href="detallepqr.html"}
+function verLevantamiento(item){const r=lista.find(x=>String(x.item||"")===String(item||""));if(!r){alert("No se encontró la PQR.");return}sessionStorage.setItem("pqr_step2",JSON.stringify(r));sessionStorage.setItem("item_pqr",item);location.href="levantamientopqr.html"}
+async function eliminar(item){
+if(!confirm("¿Está seguro de eliminar la PQR "+item+"? Esta acción no se puede deshacer."))return;
+try{const d=await api({action:"eliminarPQR",usuario:usuarioSesion,item:item});if(d.status!=="Éxito")throw Error(d.message||"No se pudo eliminar la PQR.");alert("PQR eliminada correctamente.");await cargarPQR()}catch(e){alert("No se pudo eliminar: "+e.message)}
+}
+function nuevaPQR(){location.href="nuevapqr.html"}function volverMenu(){location.href="menu.html"}function cerrarSesion(){sessionStorage.clear();location.href="index.html"}
+function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function escAttr(v){return esc(v)}function js(v){return String(v??"").replace(/\/g,"\\").replace(/'/g,"\'").replace(/\r/g,"\\r").replace(/\n/g,"\\n")}
+</script>
+</body>
+</html>
