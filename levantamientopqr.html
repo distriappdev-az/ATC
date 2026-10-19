@@ -29,32 +29,20 @@ html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;backgr
 .badge.ok{background:#eaf5e7;color:#4c733f}
 .grid{display:grid;gap:14px;margin-bottom:14px}.grid.two{grid-template-columns:1fr 1fr}.grid.three{grid-template-columns:1fr 1fr 1fr}
 .field{margin-bottom:14px}.field:last-child{margin-bottom:0}
-label{display:block;margin-bottom:6px;color:#536576;font-size:12px;font-weight:800}label span{color:#c62828}
-input,select,textarea{width:100%;border:1px solid #d5dde5;border-radius:9px;background:#fff;color:#203040;font:inherit;font-size:13px;outline:none}
-input,select{height:43px;padding:0 11px}textarea{padding:11px;resize:vertical}
-input:focus,select:focus,textarea:focus{border-color:#3977aa;box-shadow:0 0 0 3px rgba(57,119,170,.08)}
-input:disabled,select:disabled,textarea:disabled{background:#f7f9fb;color:#52677a;cursor:not-allowed}
-.readonly-box{padding:12px;border:1px solid #d5dde5;border-radius:9px;background:#f7f9fb;color:#52677a;font-size:13px;font-weight:800}
-.upload-box{min-height:90px;border:1.5px dashed #c4d0da;border-radius:12px;padding:15px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;background:#fafcfd;gap:6px}
-.upload-box i{font-size:22px;color:#3977aa}
-.upload-box strong{font-size:11px;color:#30485e}
-.upload-box input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
-.file-info{margin-top:6px;padding:6px;background:#eef5fa;border-radius:6px;color:#355a76;font-size:10px;text-align:center;word-break:break-all}
-.hidden{display:none!important}.system-card{background:#f9fbfc}
+label{display:block;margin-bottom:6px;color:#536576;font-size:12px;font-weight:800}
+.readonly-box{width:100%;min-height:43px;padding:11px;border:1px solid #d5dde5;border-radius:9px;background:#f7f9fb;color:#52677a;font-size:13px;word-break:break-word;white-space:pre-wrap}
+.file-info{display:flex;align-items:center;gap:8px;padding:12px;background:#eef5fa;border-radius:8px;color:#355a76;font-size:12px;font-weight:700}
+.file-info i{font-size:18px;color:#3977aa}
+.system-card{background:#f9fbfc}
 .system-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.system-grid div{padding:12px;border:1px solid #e1e7ec;border-radius:9px;background:#fff}
 .system-grid span{display:block;font-size:10px;text-transform:uppercase;color:#8996a3;font-weight:800}.system-grid strong{display:block;margin-top:5px;font-size:13px}
-.actions{display:flex;justify-content:flex-end;gap:10px;margin-top:8px}
-.btn-cancel,.btn-save,.btn-estado{height:45px;padding:0 20px;border-radius:9px;font-weight:900;cursor:pointer;font-size:13px}
-.btn-cancel{border:1px solid #ccd5dd;background:#fff;color:#536576}
-.btn-save{border:0;background:#17365d;color:#fff}
-.btn-estado{border:0;background:#2d8c3c;color:#fff;margin-right:auto}
-.btn-save:disabled,.btn-estado:disabled{opacity:.6;cursor:wait}
-.message{margin-bottom:16px;padding:12px 14px;border-radius:9px;font-size:12px;font-weight:700}.message.success{background:#eaf5e7;color:#3d6f35}.message.error{background:#fdeceb;color:#a52119}
+.actions{display:flex;justify-content:flex-end;margin-top:8px}
+.btn-cancel{height:45px;padding:0 30px;border-radius:9px;font-weight:900;cursor:pointer;font-size:13px;border:1px solid #ccd5dd;background:#fff;color:#536576}
 footer{text-align:center;color:#96a2ad;font-size:10px;padding:15px}
 @media(max-width:700px){
 .header-main{padding:10px 13px}.brand-title{font-size:13px}.brand-subtitle{font-size:9px}
 .user-bar{padding:7px 13px;justify-content:space-between;font-size:10px}.container{padding:20px 13px 35px}.page-title{align-items:flex-start}.page-title h1{font-size:21px}
-.grid.two,.grid.three,.system-grid{grid-template-columns:1fr}.actions{flex-direction:column-reverse}.btn-cancel,.btn-save,.btn-estado{width:100%;margin-right:0;margin-top:8px}
+.grid.two,.grid.three,.system-grid{grid-template-columns:1fr}.actions{flex-direction:column}.btn-cancel{width:100%}
 }
 </style>
 </head>
@@ -62,7 +50,7 @@ footer{text-align:center;color:#96a2ad;font-size:10px;padding:15px}
 <body>
 <header class="header">
   <div class="header-main">
-    <button class="btn-icon" onclick="volverMenu()" title="Volver">
+    <button class="btn-icon" onclick="volverATC()" title="Volver">
       <i class="fa-solid fa-arrow-left"></i>
     </button>
     <div class="brand">
@@ -86,7 +74,7 @@ footer{text-align:center;color:#96a2ad;font-size:10px;padding:15px}
   <div class="page-title">
     <div>
       <h1><span id="tituloItem">PQR -----</span></h1>
-      <p>STEP 2 · Detalles de levantamiento en campo</p>
+      <p>STEP 2 · Detalles de levantamiento en campo (Solo lectura)</p>
     </div>
     <div class="step-badge">
       <span class="step-muted"><i class="fa-solid fa-check"></i></span>
@@ -95,132 +83,86 @@ footer{text-align:center;color:#96a2ad;font-size:10px;padding:15px}
     </div>
   </div>
 
-  <div id="mensaje" class="message hidden"></div>
-
-  <form id="formLevantamiento" novalidate>
-
-    <section class="card">
-      <div class="card-title">
-        <div><i class="fa-solid fa-helmet-safety"></i>Datos de Inspección</div>
-        <span id="badgeEstado" class="badge">PENDIENTE</span>
-      </div>
-
-      <div class="grid two">
-        <div class="field">
-          <label>Fecha de Levantamiento <span>*</span></label>
-          <input id="fechaLevantamiento" type="date" required>
-        </div>
-
-        <div class="field">
-          <label>Circuito <span>*</span></label>
-          <select id="circuito" required>
-            <option value="">Cargando circuitos...</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="field">
-        <label>Descripción del Levantamiento <span>*</span></label>
-        <textarea id="descripcionLevantamiento" rows="4" maxlength="3000" required placeholder="Detalle los hallazgos técnicos en campo..."></textarea>
-      </div>
-
-      <div class="field">
-        <label>Observaciones</label>
-        <textarea id="observaciones" rows="3" maxlength="3000" placeholder="Comentarios adicionales (Opcional)..."></textarea>
-      </div>
-    </section>
-
-    <section class="card">
-      <div class="card-title"><i class="fa-solid fa-camera"></i>Evidencia Fotográfica</div>
-      <div class="grid three">
-        <!-- FOTO 1 -->
-        <div class="field">
-          <label>Foto 1 (Opcional)</label>
-          <div class="upload-box" id="boxFoto1">
-            <i class="fa-solid fa-image"></i>
-            <strong>Subir Foto 1</strong>
-            <input id="foto1" type="file" accept="image/*">
-          </div>
-          <div id="infoFoto1" class="file-info hidden"></div>
-        </div>
-        <!-- FOTO 2 -->
-        <div class="field">
-          <label>Foto 2 (Opcional)</label>
-          <div class="upload-box" id="boxFoto2">
-            <i class="fa-solid fa-image"></i>
-            <strong>Subir Foto 2</strong>
-            <input id="foto2" type="file" accept="image/*">
-          </div>
-          <div id="infoFoto2" class="file-info hidden"></div>
-        </div>
-        <!-- FOTO 3 -->
-        <div class="field">
-          <label>Foto 3 (Opcional)</label>
-          <div class="upload-box" id="boxFoto3">
-            <i class="fa-solid fa-image"></i>
-            <strong>Subir Foto 3</strong>
-            <input id="foto3" type="file" accept="image/*">
-          </div>
-          <div id="infoFoto3" class="file-info hidden"></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="card system-card">
-      <div class="card-title"><i class="fa-solid fa-lock"></i>Responsabilidad</div>
-      <div class="system-grid">
-        <div><span>Levantado por</span><strong id="levantadoPor">-</strong></div>
-        <div><span>Sector</span><strong id="sectorLevantamiento">-</strong></div>
-      </div>
-    </section>
-
-    <div class="actions">
-      <!-- Botón especial para completar el ciclo si ya fue levantada -->
-      <button type="button" class="btn-estado hidden" id="btnMarcarEjecutada" onclick="cambiarEstado('EJECUTADA')">
-        <i class="fa-solid fa-check-double"></i> MARCAR COMO EJECUTADA
-      </button>
-
-      <button type="button" class="btn-cancel" onclick="volverMenu()">Volver</button>
-      <button type="submit" class="btn-save" id="btnGuardar">
-        <i class="fa-solid fa-floppy-disk"></i> Guardar Levantamiento
-      </button>
+  <section class="card">
+    <div class="card-title">
+      <div><i class="fa-solid fa-helmet-safety"></i>Datos de Inspección</div>
+      <span id="badgeEstado" class="badge">PENDIENTE</span>
     </div>
-  </form>
+
+    <div class="grid two">
+      <div class="field">
+        <label>Fecha de Levantamiento</label>
+        <div id="fechaLevantamiento" class="readonly-box">-</div>
+      </div>
+
+      <div class="field">
+        <label>Circuito</label>
+        <div id="circuito" class="readonly-box">-</div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Descripción del Levantamiento</label>
+      <div id="descripcionLevantamiento" class="readonly-box">-</div>
+    </div>
+
+    <div class="field">
+      <label>Observaciones</label>
+      <div id="observaciones" class="readonly-box">-</div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-title"><i class="fa-solid fa-camera"></i>Evidencia Fotográfica</div>
+    <div class="grid three">
+      <div class="field">
+        <label>Foto 1</label>
+        <div id="foto1" class="readonly-box" style="color:#8a97a4;font-size:11px;text-align:center">Sin archivo</div>
+      </div>
+      <div class="field">
+        <label>Foto 2</label>
+        <div id="foto2" class="readonly-box" style="color:#8a97a4;font-size:11px;text-align:center">Sin archivo</div>
+      </div>
+      <div class="field">
+        <label>Foto 3</label>
+        <div id="foto3" class="readonly-box" style="color:#8a97a4;font-size:11px;text-align:center">Sin archivo</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card system-card">
+    <div class="card-title"><i class="fa-solid fa-lock"></i>Responsabilidad</div>
+    <div class="system-grid">
+      <div><span>Levantado por</span><strong id="levantadoPor">-</strong></div>
+      <div><span>Sector</span><strong id="sectorLevantamiento">-</strong></div>
+    </div>
+  </section>
+
+  <div class="actions">
+    <button type="button" class="btn-cancel" onclick="volverATC()"><i class="fa-solid fa-arrow-left"></i> Volver a ATC</button>
+  </div>
 </main>
 
 <footer>ENEE · UTCD · Sistema de Gestión de PQR</footer>
 
 <script>
-const CONFIG = {
-  URL_APPS_SCRIPT: "https://script.google.com/macros/s/AKfycbw7nzQdL7Kmc_cVBNp9FUPWlBwvuibc2v2vonb8sdBjxYtTuejJsJ7of03W7ZYkvAen4A/exec"
-};
-
 const usuarioSesion = sessionStorage.getItem("usuario") || sessionStorage.getItem("usuarioSesion") || "";
 const sectorSesion = sessionStorage.getItem("sector") || sessionStorage.getItem("sectorSesion") || "";
-const tipoUsuario = String(sessionStorage.getItem("tipo_usuario") || sessionStorage.getItem("tipoUsuarioSesion") || sessionStorage.getItem("id_tipous") || "").trim();
-
-let pqrActual = null;
-let modoSoloLectura = false;
 
 document.addEventListener("DOMContentLoaded", iniciar);
 
-async function iniciar() {
+function iniciar() {
   if (!usuarioSesion) { window.location.href = "index.html"; return; }
 
   // Recuperar los datos guardados en memoria por la tabla de PQR
   const datosPQRString = sessionStorage.getItem("pqr_step2");
   if (!datosPQRString) {
     alert("No se seleccionó ninguna PQR.");
-    window.location.href = "menu.html";
+    window.location.href = "atc.html";
     return;
   }
   
-  pqrActual = JSON.parse(datosPQRString);
-  
-  // Tipos de usuario: 1 = Coordinador, 2 = ATC (solo lectura aquí), 3 = Distribución (edita)
-  if (tipoUsuario === "2") {
-    modoSoloLectura = true;
-  }
+  const pqrActual = JSON.parse(datosPQRString);
 
   // Interfaz de la barra superior
   document.getElementById("nombreUsuario").textContent = usuarioSesion;
@@ -233,182 +175,40 @@ async function iniciar() {
   badge.textContent = est;
   if (est === "LEVANTADA" || est === "EJECUTADA") badge.classList.add("ok");
 
-  // Si está en solo lectura, bloquear elementos
-  if (modoSoloLectura) {
-    document.getElementById("btnGuardar").style.display = "none";
-    document.querySelectorAll("input, select, textarea").forEach(el => el.disabled = true);
-    document.querySelectorAll(".upload-box").forEach(el => el.style.background = "#f7f9fb");
-  } else {
-    document.getElementById("formLevantamiento").addEventListener("submit", guardarLevantamiento);
-    document.getElementById("foto1").addEventListener("change", (e) => mostrarInfoArchivo(e, "infoFoto1"));
-    document.getElementById("foto2").addEventListener("change", (e) => mostrarInfoArchivo(e, "infoFoto2"));
-    document.getElementById("foto3").addEventListener("change", (e) => mostrarInfoArchivo(e, "infoFoto3"));
-    
-    // Si la PQR ya fue levantada y es un Coordinador, dar opción a marcar como ejecutada
-    if (est === "LEVANTADA" && (tipoUsuario === "1" || tipoUsuario === "3")) {
-        document.getElementById("btnMarcarEjecutada").classList.remove("hidden");
-    }
-  }
-
-  // Cargar Circuitos del servidor para llenar el select
-  await cargarCircuitos();
+  // Llenar datos de los campos estáticos
+  document.getElementById("fechaLevantamiento").textContent = pqrActual.fecha_levantamiento || "-";
+  document.getElementById("circuito").textContent = pqrActual.circuito || "-";
   
-  // Finalmente, llenar el formulario con los datos que existan
-  llenarFormulario();
+  document.getElementById("descripcionLevantamiento").textContent = pqrActual.descripcion_del_levantamiento || "-";
+  document.getElementById("observaciones").textContent = pqrActual.observaciones || "-";
+
+  // Mostrar nombres de fotos si existen
+  mostrarArchivo("foto1", pqrActual.foto_1);
+  mostrarArchivo("foto2", pqrActual.foto_2);
+  mostrarArchivo("foto3", pqrActual.foto_3);
+
+  document.getElementById("levantadoPor").textContent = pqrActual.levantado_por || "-";
+  document.getElementById("sectorLevantamiento").textContent = pqrActual.sector || "-";
 }
 
-async function cargarCircuitos() {
-  const select = document.getElementById("circuito");
-  try {
-    const data = await llamarAPI({ action: "obtenerCircuitosPorSector", usuario: usuarioSesion });
-    if (data.status !== "Éxito") throw new Error("No se cargaron los circuitos.");
-    
-    const circuitos = Array.isArray(data.circuitos) ? data.circuitos : [];
-    select.innerHTML = '<option value="">Seleccione un circuito</option>';
-    circuitos.forEach(c => select.add(new Option(c, c)));
-  } catch (error) {
-    select.innerHTML = '<option value="">Error al cargar circuitos</option>';
-  }
-}
-
-function llenarFormulario() {
-  // Llenar datos pre-existentes
-  if (pqrActual.fecha_levantamiento) {
-    document.getElementById("fechaIngreso").value = formatearFechaParaInput(pqrActual.fecha_levantamiento);
-  } else if (!modoSoloLectura) {
-    document.getElementById("fechaLevantamiento").value = fechaHoyLocal();
-  }
-
-  document.getElementById("circuito").value = pqrActual.circuito || "";
-  document.getElementById("descripcionLevantamiento").value = pqrActual.descripcion_del_levantamiento || "";
-  document.getElementById("observaciones").value = pqrActual.observaciones || "";
-
-  // Mostrar nombres de fotos si existen (Texto base por ahora hasta implementar Google Drive uploads)
-  if (pqrActual.foto_1) simularArchivoExistente("infoFoto1", "boxFoto1", pqrActual.foto_1);
-  if (pqrActual.foto_2) simularArchivoExistente("infoFoto2", "boxFoto2", pqrActual.foto_2);
-  if (pqrActual.foto_3) simularArchivoExistente("infoFoto3", "boxFoto3", pqrActual.foto_3);
-
-  document.getElementById("levantadoPor").textContent = pqrActual.levantado_por || (modoSoloLectura ? "-" : usuarioSesion);
-  document.getElementById("sectorLevantamiento").textContent = pqrActual.sector || (modoSoloLectura ? "-" : sectorSesion);
-}
-
-// ---- MANEJO DEL GUARDADO (STEP 2) ----
-async function guardarLevantamiento(event) {
-  event.preventDefault();
-  limpiarErrores();
-
-  if (!document.getElementById("fechaLevantamiento").value || 
-      !document.getElementById("circuito").value || 
-      !document.getElementById("descripcionLevantamiento").value.trim()) {
-    mostrarMensaje("Complete todos los campos obligatorios (*).", "error");
-    return;
-  }
-
-  const btn = document.getElementById("btnGuardar");
-  btn.disabled = true;
-  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';
-
-  try {
-    const payload = {
-      action: "actualizarStep2",
-      usuario: usuarioSesion,
-      item: pqrActual.item,
-      pqr: {
-        fecha_de_levantamiento: formatearFechaParaServidor(document.getElementById("fechaLevantamiento").value),
-        circuito: document.getElementById("circuito").value,
-        descripcion_del_levantamiento: document.getElementById("descripcionLevantamiento").value.trim(),
-        observaciones: document.getElementById("observaciones").value.trim(),
-        // Los nombres/archivos de foto (Requiere implementación extra en app script si suben a drive)
-        foto_1: document.getElementById("infoFoto1").dataset.nombre || "",
-        foto_2: document.getElementById("infoFoto2").dataset.nombre || "",
-        foto_3: document.getElementById("infoFoto3").dataset.nombre || ""
-      }
-    };
-
-    const data = await llamarAPI(payload);
-    if (data.status !== "Éxito") throw new Error(data.message || "Error al guardar el levantamiento.");
-    
-    // Si estaba Pendiente, la cambiamos automáticamente a Levantada
-    if ((pqrActual.estado || "").toUpperCase() === "PENDIENTE") {
-        await llamarAPI({ action: "cambiarEstadoPQR", usuario: usuarioSesion, item: pqrActual.item, estado: "LEVANTADA" });
-    }
-
-    mostrarMensaje("Levantamiento guardado correctamente.", "success");
-    setTimeout(() => volverMenu(), 1500);
-
-  } catch (error) {
-    mostrarMensaje(error.message, "error");
-    btn.disabled = false;
-    btn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Guardar Levantamiento';
-  }
-}
-
-// Botón Extra: Cambiar estado a EJECUTADA (Fin del ciclo de PQR)
-async function cambiarEstado(nuevoEstado) {
-    const btn = document.getElementById("btnMarcarEjecutada");
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Procesando...';
-    try {
-        const data = await llamarAPI({ action: "cambiarEstadoPQR", usuario: usuarioSesion, item: pqrActual.item, estado: nuevoEstado });
-        if (data.status !== "Éxito") throw new Error(data.message);
-        mostrarMensaje("PQR marcada como " + nuevoEstado + " exitosamente.", "success");
-        setTimeout(() => volverMenu(), 1500);
-    } catch (error) {
-        mostrarMensaje(error.message, "error");
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fa-solid fa-check-double"></i> MARCAR COMO ' + nuevoEstado;
+function mostrarArchivo(idContenedor, nombreArchivo) {
+    if (nombreArchivo && nombreArchivo.trim() !== "") {
+        const div = document.getElementById(idContenedor);
+        div.innerHTML = `<div class="file-info"><i class="fa-solid fa-image"></i> ${nombreArchivo}</div>`;
+        div.style.padding = "0";
+        div.style.border = "none";
+        div.style.background = "transparent";
     }
 }
 
-// ---- UTILERÍAS ----
-
-function mostrarInfoArchivo(event, idInfo) {
-  const file = event.target.files[0];
-  const info = document.getElementById(idInfo);
-  if (!file) {
-    info.classList.add("hidden");
-    info.dataset.nombre = "";
-    return;
-  }
-  info.textContent = `Seleccionado: ${file.name}`;
-  info.dataset.nombre = file.name; // Simulación para guardar el nombre en Google Sheets
-  info.classList.remove("hidden");
+function volverATC() {
+    window.location.href = "atc.html"; 
 }
 
-function simularArchivoExistente(idInfo, idBox, nombre) {
-    const info = document.getElementById(idInfo);
-    info.textContent = `Archivo adjunto: ${nombre}`;
-    info.dataset.nombre = nombre;
-    info.classList.remove("hidden");
-    if(modoSoloLectura) document.getElementById(idBox).style.display = "none"; // Oculta la caja de subida si ya existe en modo lectura
+function cerrarSesion() { 
+    sessionStorage.clear(); 
+    window.location.href = "index.html"; 
 }
-
-async function llamarAPI(payload) {
-  const r = await fetch(CONFIG.URL_APPS_SCRIPT, { method: "POST", body: JSON.stringify(payload) });
-  if (!r.ok) throw new Error(`Error HTTP ${r.status}`);
-  return await r.json();
-}
-
-function volverMenu() {
-    // Si viene de Distribución (Tipo 3), vuelve allá. Si es ATC (Tipo 2), vuelve allá. Coordinador puede elegir, enviemos a su módulo base.
-    location.href = (tipoUsuario === "2") ? "atc.html" : "distribucion.html"; 
-}
-function cerrarSesion() { sessionStorage.clear(); window.location.href = "index.html"; }
-function fechaHoyLocal() { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
-function formatearFechaParaInput(v) { 
-    if(!v) return ""; 
-    if(/^\d{2}\/\d{2}\/\d{4}\$/.test(v)) { const p = v.split("/"); return `${p[2]}-${p[1]}-${p[0]}`; } // dd/mm/aaaa a yyyy-mm-dd
-    if(/^\d{4}-\d{2}-\d{2}T/.test(v)) { return v.split("T")[0]; }
-    return v;
-}
-function formatearFechaParaServidor(v) {
-    if(!v) return "";
-    const p = v.split("-");
-    if(p.length===3) return `${p[2]}/${p[1]}/${p[0]}`; // yyyy-mm-dd a dd/mm/aaaa
-    return v;
-}
-function limpiarErrores() { document.querySelectorAll(".invalid").forEach(el => el.classList.remove("invalid")); }
-function mostrarMensaje(texto, tipo) { const m = document.getElementById("mensaje"); m.textContent = texto; m.className = `message ${tipo}`; }
 </script>
 </body>
 </html>
