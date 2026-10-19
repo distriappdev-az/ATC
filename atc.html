@@ -118,9 +118,12 @@ async function eliminar(item){
 if(!confirm("¿Está seguro de eliminar la PQR "+item+"? Esta acción no se puede deshacer."))return;
 try{const d=await api({action:"eliminarPQR",usuario:usuarioSesion,item:item});if(d.status!=="Éxito")throw Error(d.message||"No se pudo eliminar la PQR.");alert("PQR eliminada correctamente.");await cargarPQR()}catch(e){alert("No se pudo eliminar: "+e.message)}
 }
-function nuevaPQR(){location.href="nuevapqr.html"}function volverMenu(){location.href="menu.html"}function cerrarSesion(){sessionStorage.clear();location.href="index.html"}
+function nuevaPQR(){location.href="nuevapqr.html"}
+function volverMenu(){location.href="menu.html"}
+function cerrarSesion(){sessionStorage.clear();location.href="index.html"}
 function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
-function escAttr(v){return esc(v)}function js(v){return String(v??"").replace(/\/g,"\\").replace(/'/g,"\'").replace(/\r/g,"\\r").replace(/\n/g,"\\n")}
+function escAttr(v){return esc(v)}
+function js(v){return String(v??"").replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/\r/g,"\\r").replace(/\n/g,"\\n")}
 </script>
 </body>
 </html>
